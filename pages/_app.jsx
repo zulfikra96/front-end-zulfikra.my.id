@@ -18,7 +18,7 @@ export default function MyApp({ Component, pageProps }) {
             <Script strategy="beforeInteractive" src="/assets/vendor/isotope-layout/isotope.pkgd.min.js" />
             <Script src="/assets/vendor/php-email-form/validate.js" />  
             <Script strategy="beforeInteractive" src="/assets/vendor/swiper/swiper-bundle.min.js" />
-            <Script strategy="afterInteractive" src="/assets/js/main.js" />
+            <Script  src="/assets/js/main.js" />
         </>
     )
 }

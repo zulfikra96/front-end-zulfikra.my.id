@@ -52,7 +52,7 @@
   /**
    * Porfolio isotope and filter
    */
-  if (document.readyState === "complete") {
+  if (document.readyState === "complete" || document.readyState === "interactive") {
     // console.log("call here")
     let portfolioContainer = select('#portfolio-grid');
     if (portfolioContainer) {
@@ -105,12 +105,13 @@
   /**
    * Animation on scroll
    */
-  if (document.readyState === "complete") {
+  if (document.readyState === "complete" || document.readyState === "interactive") {
     AOS.init({
       duration: 1000,
       easing: 'ease-in-out',
       once: true,
       mirror: false
     })
-  }
+  } 
+  // console.log(document.readyState)
 })()
