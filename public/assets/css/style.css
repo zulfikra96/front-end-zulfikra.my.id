@@ -17,6 +17,14 @@
   background-color: #0d1e2d;  
 }
 
+.font-dark {
+  color: #0d1e2d;
+}
+
+.font-white {
+  color: #fff;
+}
+
 .bg-dark a, .bg-dark a:hover, .btn-green{
   color: #A2FF86;
   
@@ -27,15 +35,24 @@ body {
   color: #A2FF86;
 }
 
+.work-item img {
+  filter: brightness(80%);
+  transition: filter 300ms ease-out;
+}
+
+.work-item img:hover {
+  filter: brightness(70%);
+}
 
 
 a {
-  color: #777;
+  font-family: "Inconsolata", monospace;
+  color: #A2FF86;
   text-decoration: none;
 }
 
 a:hover {
-  color: #000;
+  color: #A2FF86;
 }
 
 h1,
@@ -93,7 +110,7 @@ h6,
 
 .item {
   border: none;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 
 .item .item-wrap {

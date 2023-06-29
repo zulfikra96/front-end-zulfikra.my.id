@@ -15,8 +15,8 @@ export default function Navbar({ languageJson, active }) {
                                 <li className={(active === 'home') ? 'active' : ''}><a href="/">{languageJson?.navbar[language]?.home}</a></li>
                                 <li className={(active === 'blog') ? 'active' : ''}><Link href="/blogs">{languageJson?.navbar[language]?.blog}</Link></li>
                                 <li className={(active === 'about') ? 'active' : ''}><Link href="/about">{languageJson?.navbar[language]?.about}</Link></li>
-                                <li className={(active === 'services') ? 'active' : ''}><a href="services.html">{languageJson?.navbar[language]?.services}</a></li>
-                                <li className={(active === 'works') ? 'active' : ''}><a href="works.html">{languageJson?.navbar[language]?.works}</a></li>
+                                <li className={(active === 'services') ? 'active' : ''}><a href="/service">{languageJson?.navbar[language]?.services}</a></li>
+                                <li className={(active === 'works') ? 'active' : ''}><Link href="/works">{languageJson?.navbar[language]?.works}</Link></li>
                                 <li className={(active === 'contact') ? 'active' : ''}><a href="contact.html">{languageJson?.navbar[language]?.contact}</a></li>
                             </ul>
                         </div>
