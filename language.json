@@ -90,5 +90,31 @@
             "about":"About me",
             "description":"With 4 years of experience as a software engineer, I have become more mature in this field. I have experience in web development, Android application development, and back-end development. Additionally, I have experience in other areas such as system administration, engineering design, and system analysis. With these skills, I am able to work both independently and as part of a team. I also have a strong desire to continuously learn new things."
         }
+    },
+    "contact":{
+        "indonesia":{
+            "contact":"Kontak",
+            "form":{
+                "name":"Nama Lengkap",
+                "email":"Email",
+                "subject":"",
+                "message":"Pesan",
+                "send_message":"Kirim pesan",
+                "address":"Alamat",
+                "phone":"Nomor Telp"
+            }
+        },
+        "english":{
+            "contact":"Contact me",
+            "form":{
+                "name":"Your email",
+                "email":"Email",
+                "subject":"",
+                "message":"Message",
+                "send_message":"Send Message",
+                "address":"Address",
+                "phone":"Phone"
+            }
+        }
     }
 }
