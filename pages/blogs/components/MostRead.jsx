@@ -7,7 +7,7 @@ export default function MostRead({ most_popular }) {
         <div className="d-flex col-md-3 col-12 flex-column">
             <h4><strong>Banyak dibaca</strong></h4>
             <div className="d-flex flex-column pt-3">
-                {most_popular.map((e) => (
+                {most_popular?.map((e) => (
                     <Link key={e.id} href={`/blogs/${e.slug}`}><div  className="d-flex flex-column">
                         <h5 className="">{e.title}</h5>
                         <div className="d-flex flex-row">

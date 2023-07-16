@@ -18,7 +18,7 @@ export default function Works({ languageJson, categories, works }) {
                         <div className="col-md-12 col-lg-6 text-start text-lg-end" data-aos="fade-up" data-aos-delay="100">
                             <div id="filters" className="filters">
                                 <a href="#" data-filter="*" className="active">All</a>
-                                {categories.map((e) => (
+                                {categories?.map((e) => (
                                     <a key={e.id} href="#" data-filter={`.${e.title.replace(/\s/g, "-").toLowerCase()}`}>{e.title}</a>
                                 ))}
                             </div>
