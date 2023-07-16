@@ -6,16 +6,24 @@
     "start": "next start"
   },
   "dependencies": {
+    "date-fns": "^2.30.0",
+    "draft-js": "^0.11.7",
+    "draftjs-to-html": "^0.9.1",
     "lodash": "^4.17.21",
     "next": "latest",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-draft-wysiwyg": "^1.15.0",
+    "react-google-recaptcha": "^3.1.0",
+    "sweetalert2": "^11.7.12",
     "swiper": "^9.4.1",
     "zustand": "^4.3.8"
   },
   "devDependencies": {
     "@types/node": "20.3.1",
     "@types/react": "18.2.14",
+    "eslint": "^8.44.0",
+    "eslint-plugin-react": "^7.32.2",
     "typescript": "5.1.3"
   }
 }

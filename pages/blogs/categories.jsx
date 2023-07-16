@@ -74,7 +74,7 @@ export default function Search({ language_json, base_url }) {
                     <NavbarBlog base_url={base_url} />
                     <div className="d-flex flex-column mb-4">
                         <div className="d-flex ">
-                            <span><strong>Hasil Pencarian : </strong>{search}</span>
+                            <span><strong>Kategori </strong>{search}</span>
                         </div>
 
                     </div>

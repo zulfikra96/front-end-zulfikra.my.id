@@ -1,3 +1,4 @@
+import React from "react"
 import Navbar from "./components/Navbar"
 import Image from "next/image"
 import { globalStore } from "../states/global.js"
@@ -34,145 +35,145 @@ export default function About({ language_json }) {
             <Navbar active={"about"} languageJson={languageJson} />
 
             <main id="main">
-                <section class="section pb-5">
-                    <div class="container">
-                        <div class="row mb-5 align-items-end">
-                            <div class="col-md-6" data-aos="fade-up">
+                <section className="section pb-5">
+                    <div className="container">
+                        <div className="row mb-5 align-items-end">
+                            <div className="col-md-6" data-aos="fade-up">
 
                                 <h2>{languageJson?.about_me[language].about}</h2>
-                                <p class="mb-0">{languageJson?.about_me[language].description}</p>
+                                <p className="mb-0">{languageJson?.about_me[language].description}</p>
                             </div>
 
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-4 ml-auto order-2" data-aos="fade-up">
-                                <h3 class="h3 mb-4">Skills</h3>
-                                <ul class="list-unstyled">
-                                    <li class="mb-3">
-                                        <div class="d-flex mb-1 justify-content-between">
+                        <div className="row">
+                            <div className="col-md-4 ml-auto order-2" data-aos="fade-up">
+                                <h3 className="h3 mb-4">Skills</h3>
+                                <ul className="list-unstyled">
+                                    <li className="mb-3">
+                                        <div className="d-flex mb-1 justify-content-between">
                                             <strong>Node.js</strong>
-                                            <span class="ml-4">9/10</span>
+                                            <span className="ml-4">9/10</span>
                                         </div>
-                                        <div class="progress custom-progress">
-                                            <div class="progress-bar" role="progressbar" style={{ width: "90%" }} aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div className="progress custom-progress">
+                                            <div className="progress-bar" role="progressbar" style={{ width: "90%" }} aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </li>
-                                    <li class="mb-3">
-                                        <div class="d-flex mb-1 justify-content-between">
+                                    <li className="mb-3">
+                                        <div className="d-flex mb-1 justify-content-between">
                                             <strong>Express.js</strong>
-                                            <span class="ml-auto">9/10</span>
+                                            <span className="ml-auto">9/10</span>
                                         </div>
-                                        <div class="progress custom-progress">
-                                            <div class="progress-bar" role="progressbar" style={{ width: "90%" }} aria-valuenow="96" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div className="progress custom-progress">
+                                            <div className="progress-bar" role="progressbar" style={{ width: "90%" }} aria-valuenow="96" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </li>
-                                    <li class="mb-3">
-                                        <div class="d-flex mb-1 justify-content-between">
+                                    <li className="mb-3">
+                                        <div className="d-flex mb-1 justify-content-between">
                                             <strong>HTML5/CSS3</strong>
-                                            <span class="ml-auto">7/10</span>
+                                            <span className="ml-auto">7/10</span>
                                         </div>
-                                        <div class="progress custom-progress">
-                                            <div class="progress-bar" role="progressbar" style={{ width: "70%" }} aria-valuenow="99" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div className="progress custom-progress">
+                                            <div className="progress-bar" role="progressbar" style={{ width: "70%" }} aria-valuenow="99" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </li>
-                                    <li class="mb-3">
-                                        <div class="d-flex mb-1 justify-content-between">
+                                    <li className="mb-3">
+                                        <div className="d-flex mb-1 justify-content-between">
                                             <strong>Next.js</strong>
-                                            <span class="ml-auto ">7/10</span>
+                                            <span className="ml-auto ">7/10</span>
                                         </div>
-                                        <div class="progress custom-progress">
-                                            <div class="progress-bar" role="progressbar" style={{ width: "70%" }} aria-valuenow="87" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div className="progress custom-progress">
+                                            <div className="progress-bar" role="progressbar" style={{ width: "70%" }} aria-valuenow="87" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </li>
-                                    <li class="mb-3">
-                                        <div class="d-flex mb-1 justify-content-between">
+                                    <li className="mb-3">
+                                        <div className="d-flex mb-1 justify-content-between">
                                             <strong>React Native</strong>
-                                            <span class="ml-auto ">8/10</span>
+                                            <span className="ml-auto ">8/10</span>
                                         </div>
-                                        <div class="progress custom-progress">
-                                            <div class="progress-bar" role="progressbar" style={{ width: "80%" }} aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div className="progress custom-progress">
+                                            <div className="progress-bar" role="progressbar" style={{ width: "80%" }} aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </li>
-                                    <li class="mb-3">
-                                        <div class="d-flex mb-1 justify-content-between">
+                                    <li className="mb-3">
+                                        <div className="d-flex mb-1 justify-content-between">
                                             <strong>React</strong>
-                                            <span class="ml-auto">8/10</span>
+                                            <span className="ml-auto">8/10</span>
                                         </div>
-                                        <div class="progress custom-progress">
-                                            <div class="progress-bar" role="progressbar" style={{ width: "80%" }} aria-valuenow="88" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div className="progress custom-progress">
+                                            <div className="progress-bar" role="progressbar" style={{ width: "80%" }} aria-valuenow="88" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </li>
-                                    <li class="mb-3">
-                                        <div class="d-flex mb-1 justify-content-between">
+                                    <li className="mb-3">
+                                        <div className="d-flex mb-1 justify-content-between">
                                             <strong>Socket.IO</strong>
-                                            <span class="ml-auto">9/10</span>
+                                            <span className="ml-auto">9/10</span>
                                         </div>
-                                        <div class="progress custom-progress">
-                                            <div class="progress-bar" role="progressbar" style={{ width: "90%" }} aria-valuenow="88" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div className="progress custom-progress">
+                                            <div className="progress-bar" role="progressbar" style={{ width: "90%" }} aria-valuenow="88" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </li>
-                                    <li class="mb-3">
-                                        <div class="d-flex mb-1 justify-content-between">
+                                    <li className="mb-3">
+                                        <div className="d-flex mb-1 justify-content-between">
                                             <strong>PostgreSQL</strong>
-                                            <span class="ml-auto">8/10</span>
+                                            <span className="ml-auto">8/10</span>
                                         </div>
-                                        <div class="progress custom-progress">
-                                            <div class="progress-bar" role="progressbar" style={{ width: "80%" }} aria-valuenow="88" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div className="progress custom-progress">
+                                            <div className="progress-bar" role="progressbar" style={{ width: "80%" }} aria-valuenow="88" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </li>
-                                    <li class="mb-3">
-                                        <div class="d-flex mb-1 justify-content-between">
+                                    <li className="mb-3">
+                                        <div className="d-flex mb-1 justify-content-between">
                                             <strong>MongoDB</strong>
-                                            <span class="ml-auto">7/10</span>
+                                            <span className="ml-auto">7/10</span>
                                         </div>
-                                        <div class="progress custom-progress">
-                                            <div class="progress-bar" role="progressbar" style={{ width: "70%" }} aria-valuenow="88" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div className="progress custom-progress">
+                                            <div className="progress-bar" role="progressbar" style={{ width: "70%" }} aria-valuenow="88" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </li>
-                                    <li class="mb-3">
-                                        <div class="d-flex mb-1 justify-content-between">
+                                    <li className="mb-3">
+                                        <div className="d-flex mb-1 justify-content-between">
                                             <strong>Prisma ORM</strong>
-                                            <span class="ml-auto">7/10</span>
+                                            <span className="ml-auto">7/10</span>
                                         </div>
-                                        <div class="progress custom-progress">
-                                            <div class="progress-bar" role="progressbar" style={{ width: "70%" }} aria-valuenow="88" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div className="progress custom-progress">
+                                            <div className="progress-bar" role="progressbar" style={{ width: "70%" }} aria-valuenow="88" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </li>
-                                    <li class="mb-3">
-                                        <div class="d-flex mb-1 justify-content-between">
+                                    <li className="mb-3">
+                                        <div className="d-flex mb-1 justify-content-between">
                                             <strong>Linux Ubuntu / Debian</strong>
-                                            <span class="ml-auto">8/10</span>
+                                            <span className="ml-auto">8/10</span>
                                         </div>
-                                        <div class="progress custom-progress">
-                                            <div class="progress-bar" role="progressbar" style={{ width: "80%" }} aria-valuenow="88" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div className="progress custom-progress">
+                                            <div className="progress-bar" role="progressbar" style={{ width: "80%" }} aria-valuenow="88" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </li>
-                                    <li class="mb-3">
-                                        <div class="d-flex mb-1 justify-content-between">
+                                    <li className="mb-3">
+                                        <div className="d-flex mb-1 justify-content-between">
                                             <strong>Nginx</strong>
-                                            <span class="ml-auto">7/10</span>
+                                            <span className="ml-auto">7/10</span>
                                         </div>
-                                        <div class="progress custom-progress">
-                                            <div class="progress-bar" role="progressbar" style={{ width: "70%" }} aria-valuenow="88" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div className="progress custom-progress">
+                                            <div className="progress-bar" role="progressbar" style={{ width: "70%" }} aria-valuenow="88" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </li>
-                                    <li class="mb-3">
-                                        <div class="d-flex mb-1 justify-content-between">
+                                    <li className="mb-3">
+                                        <div className="d-flex mb-1 justify-content-between">
                                             <strong>Figma</strong>
-                                            <span class="ml-auto">7/10</span>
+                                            <span className="ml-auto">7/10</span>
                                         </div>
-                                        <div class="progress custom-progress">
-                                            <div class="progress-bar" role="progressbar" style={{ width: "70%" }} aria-valuenow="88" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div className="progress custom-progress">
+                                            <div className="progress-bar" role="progressbar" style={{ width: "70%" }} aria-valuenow="88" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </li>
                                 </ul>
                             </div>
 
-                            <div class="col-md-7 mb-5 mb-md-0" data-aos="fade-up">
+                            <div className="col-md-7 mb-5 mb-md-0" data-aos="fade-up">
                                 <div className="row">
-                                    <div className="ms-3 img-thumbnail justify-content-center mb-4" style={{ width: "20vw", height: "40vh", position: "relative" }}>
-                                        <Image fill src={"/assets/img/zulfikra-lahmudin.jpg"} />
+                                    <div className="img-fluid justify-content-center mb-4 col-lg-6" >
+                                        <img className="col-12 co-md-6" src={"/assets/img/zulfikra-lahmudin.jpg"} />
                                     </div>
                                     <div className="row mb-4">
                                         <h4><strong>Work Experience</strong></h4>

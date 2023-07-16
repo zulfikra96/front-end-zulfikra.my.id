@@ -1,18 +1,19 @@
 import React from "react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { globalStore } from "../../states/global";
+import { globalStore } from "../../../states/global";
 import { isEmpty } from "lodash";
-import Navbar from "../components/Navbar";
+import Navbar from "../../components/Navbar";
 import fs from "fs"
 import path from "path"
-import Footer from "../components/Footer"
-import NavbarBlog from "./components/Navbar";
-import MostRead from "./components/MostRead";
+import Footer from "../../components/Footer"
+import NavbarBlog from "../components/Navbar";
+import MostRead from "../components/MostRead";
 import { NextRouter, useRouter } from "next/router";
-import { blogStore } from "../../states/Blogs";
-export async function getServerSideProps() {
+import { blogStore } from "../../../states/Blogs";
 
+
+export async function getServerSideProps() {
     const dir = path.resolve(process.cwd(), "language.json")
     const language_json = JSON.parse(fs.readFileSync(dir).toString())
 
@@ -30,8 +31,8 @@ export default function Search({ language_json, base_url }) {
     const [showSearch, setShowSearch] = useState(false)
     const searchRef = useRef(null)
     const router = useRouter()
-    const search = router.query.s || "";
-    const { latest_blogs, editor_choice, most_popular, getClientBlogs } = blogStore()
+    const name = router.query.name;
+    const { latest_blogs, editor_choice, most_popular, getClientBlogs, getClientBlogByCategory } = blogStore()
 
     useEffect(() => {
         console.log(router)
@@ -62,7 +63,8 @@ export default function Search({ language_json, base_url }) {
                 //     el: '.swiper-scrollbar',
                 // },
             });
-            await getClientBlogs(base_url, "", search)
+            await getClientBlogs(base_url, "")
+            await getClientBlogByCategory(base_url, name)
         })()
 
     }, [])
@@ -74,7 +76,7 @@ export default function Search({ language_json, base_url }) {
                     <NavbarBlog base_url={base_url} />
                     <div className="d-flex flex-column mb-4">
                         <div className="d-flex ">
-                            <span><strong>Hasil Pencarian : </strong>{search}</span>
+                            <span><strong>Kategori : </strong>{name}</span>
                         </div>
 
                     </div>

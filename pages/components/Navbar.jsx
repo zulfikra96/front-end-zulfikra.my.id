@@ -1,3 +1,4 @@
+import React from "react"
 import { globalStore } from "../../states/global.js"
 import Link from "next/link"
 import Images from "next/image"
@@ -15,9 +16,9 @@ export default function Navbar({ languageJson, active }) {
                                 <li className={(active === 'home') ? 'active' : ''}><a href="/">{languageJson?.navbar[language]?.home}</a></li>
                                 <li className={(active === 'blog') ? 'active' : ''}><Link href="/blogs">{languageJson?.navbar[language]?.blog}</Link></li>
                                 <li className={(active === 'about') ? 'active' : ''}><Link href="/about">{languageJson?.navbar[language]?.about}</Link></li>
-                                <li className={(active === 'services') ? 'active' : ''}><a href="/service">{languageJson?.navbar[language]?.services}</a></li>
+                                <li className={(active === 'services') ? 'active' : ''}><Link href="/service">{languageJson?.navbar[language]?.services}</Link></li>
                                 <li className={(active === 'works') ? 'active' : ''}><Link href="/works">{languageJson?.navbar[language]?.works}</Link></li>
-                                <li className={(active === 'contact') ? 'active' : ''}><a href="contact.html">{languageJson?.navbar[language]?.contact}</a></li>
+                                <li className={(active === 'contact') ? 'active' : ''}><Link href="/contact">{languageJson?.navbar[language]?.contact}</Link></li>
                             </ul>
                         </div>
                         <div className="col-md-8 d-none d-md-block">
@@ -31,7 +32,6 @@ export default function Navbar({ languageJson, active }) {
                             </select>
                         </div>
                     </div>
-
                 </div>
             </div>
 

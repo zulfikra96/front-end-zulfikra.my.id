@@ -1,5 +1,5 @@
 "use-strict"
-
+import React from "react";
 import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
@@ -7,6 +7,8 @@ import { globalStore } from "../../states/global";
 import { isEmpty } from "lodash";
 import path from "path";
 import fs from "fs"
+import { worksState } from "../../states/Works";
+import Link from "next/link";
 
 export async function getServerSideProps() {
     const dir = path.resolve(process.cwd(), "language.json")
@@ -14,22 +16,26 @@ export async function getServerSideProps() {
 
     return {
         props: {
-            language_json
+            language_json,
+            base_url: process.env.BASE_URL
         }
     }
 }
 
 
-export default function Works({ language_json }) {
+export default function Works({ language_json, base_url }) {
     const [languageJson, setLanguageJson] = useState()
     const { language, chooseLanguage } = globalStore()
+    const { getClientWorks, works } = worksState()
     useEffect(() => {
         // console.log(language === "")
         setLanguageJson(language_json);
         if (isEmpty(language)) {
             chooseLanguage("indonesia");
         }
-
+        (async () => {
+            await getClientWorks(base_url)
+        })()
     }, [])
     return (
         <div>
@@ -41,69 +47,20 @@ export default function Works({ language_json }) {
                     </div>
 
                     <div id="portfolio-grid" className="row no-gutter" data-aos="fade-up" data-aos-delay="200">
-                        <div className="item web col-sm-6 col-md-4 col-lg-4 mb-4">
-                            <a href="work-single.html" className="item-wrap fancybox">
-                                <div className="work-info">
-                                    <h3>Boxed Water</h3>
-                                    <span>Web</span>
-                                </div>
-                                <img className="img-fluid" src="/assets/img/software.png" />
-                            </a>
-                        </div>
-                        <div className="item photography col-sm-6 col-md-4 col-lg-4 mb-4">
-                            <a href="work-single.html" className="item-wrap fancybox">
-                                <div className="work-info">
-                                    <h3>Build Indoo</h3>
-                                    <span>Photography</span>
-                                </div>
-                                <img className="img-fluid" src="/assets/img/software.png" />
-                            </a>
-                        </div>
-                        <div className="item branding col-sm-6 col-md-4 col-lg-4 mb-4">
-                            <a href="work-single.html" className="item-wrap fancybox">
-                                <div className="work-info">
-                                    <h3>Cocooil</h3>
-                                    <span>Branding</span>
-                                </div>
-                                <img className="img-fluid" src="/assets/img/software.png" />
-                            </a>
-                        </div>
-                        <div className="item design col-sm-6 col-md-4 col-lg-4 mb-4">
-                            <a href="work-single.html" className="item-wrap fancybox">
-                                <div className="work-info">
-                                    <h3>Nike Shoe</h3>
-                                    <span>Design</span>
-                                </div>
-                                <img className="img-fluid" src="/assets/img/software.png" />
-                            </a>
-                        </div>
-                        <div className="item photography col-sm-6 col-md-4 col-lg-4 mb-4">
-                            <a href="work-single.html" className="item-wrap fancybox">
-                                <div className="work-info">
-                                    <h3>Kitchen Sink</h3>
-                                    <span>Photography</span>
-                                </div>
-                                <img className="img-fluid" src="/assets/img/software.png" />
-                            </a>
-                        </div>
-                        <div className="item branding col-sm-6 col-md-4 col-lg-4 mb-4">
-                            <a href="work-single.html" className="item-wrap fancybox">
-                                <div className="work-info">
-                                    <h3>Amazon</h3>
-                                    <span>brandingn</span>
-                                </div>
-                                <img className="img-fluid" src="/assets/img/software.png" />
-                            </a>
-                        </div>
-                        <div className="item branding col-sm-6 col-md-4 col-lg-4 mb-4">
-                            <a href="work-single.html" className="item-wrap fancybox">
-                                <div className="work-info">
-                                    <h3>Amazon</h3>
-                                    <span>brandingn</span>
-                                </div>
-                                <img className="img-fluid" src="/assets/img/software.png" />
-                            </a>
-                        </div>
+                        {works.map((e) => (
+                            <div key={e.id} className="overflow-hidden item web col-sm-6 col-md-4 col-lg-4 mb-4">
+                                <Link href={`/works/${e.id}`} className="item-wrap fancybox">
+                                    <div className="work-info">
+                                        <h3>{e.title}</h3>
+                                        <span>{e.category}</span>
+                                    </div>
+                                    <div style={{ height:"230px" }} className="overflow-hidden">
+                                        <img className="img-fluid" src={e.image_cover} />
+                                    </div>
+                                </Link>
+                            </div>
+                        ))}
+
                     </div>
 
                 </div>

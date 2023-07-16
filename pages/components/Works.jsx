@@ -1,8 +1,9 @@
+import React from "react"
+import Link from "next/link.js"
 import { globalStore } from "../../states/global.js"
 
-
-export default function Works({ languageJson }) {
-  const { language, chooseLanguage } = globalStore()
+export default function Works({ languageJson, categories, works }) {
+    const { language, chooseLanguage } = globalStore()
 
     return (
         <div>
@@ -17,68 +18,26 @@ export default function Works({ languageJson }) {
                         <div className="col-md-12 col-lg-6 text-start text-lg-end" data-aos="fade-up" data-aos-delay="100">
                             <div id="filters" className="filters">
                                 <a href="#" data-filter="*" className="active">All</a>
-                                <a href="#" data-filter=".web">Web App</a>
-                                <a href="#" data-filter=".design">Mobile App</a>
-                                <a href="#" data-filter=".photography">CAD</a>
-                                <a href="#" data-filter=".photography">DIY</a>
+                                {categories.map((e) => (
+                                    <a key={e.id} href="#" data-filter={`.${e.title.replace(/\s/g, "-").toLowerCase()}`}>{e.title}</a>
+                                ))}
                             </div>
                         </div>
                     </div>
                     <div id="portfolio-grid" className="row no-gutter" data-aos="fade-up" data-aos-delay="200">
-                        <div className="item web col-sm-6 col-md-4 col-lg-4 mb-4">
-                            <a href="work-single.html" className="item-wrap fancybox">
-                                <div className="work-info">
-                                    <h3>Boxed Water</h3>
-                                    <span>Web</span>
-                                </div>
-                                <img className="img-fluid" src="/assets/img/img_1.jpg" />
-                            </a>
-                        </div>
-                        <div className="item photography col-sm-6 col-md-4 col-lg-4 mb-4">
-                            <a href="work-single.html" className="item-wrap fancybox">
-                                <div className="work-info">
-                                    <h3>Build Indoo</h3>
-                                    <span>Photography</span>
-                                </div>
-                                <img className="img-fluid" src="/assets/img/img_2.jpg" />
-                            </a>
-                        </div>
-                        <div className="item branding col-sm-6 col-md-4 col-lg-4 mb-4">
-                            <a href="work-single.html" className="item-wrap fancybox">
-                                <div className="work-info">
-                                    <h3>Cocooil</h3>
-                                    <span>Branding</span>
-                                </div>
-                                <img className="img-fluid" src="/assets/img/img_3.jpg" />
-                            </a>
-                        </div>
-                        <div className="item design col-sm-6 col-md-4 col-lg-4 mb-4">
-                            <a href="work-single.html" className="item-wrap fancybox">
-                                <div className="work-info">
-                                    <h3>Nike Shoe</h3>
-                                    <span>Design</span>
-                                </div>
-                                <img className="img-fluid" src="/assets/img/img_4.jpg" />
-                            </a>
-                        </div>
-                        <div className="item photography col-sm-6 col-md-4 col-lg-4 mb-4">
-                            <a href="work-single.html" className="item-wrap fancybox">
-                                <div className="work-info">
-                                    <h3>Kitchen Sink</h3>
-                                    <span>Photography</span>
-                                </div>
-                                <img className="img-fluid" src="/assets/img/img_5.jpg" />
-                            </a>
-                        </div>
-                        <div className="item branding col-sm-6 col-md-4 col-lg-4 mb-4">
-                            <a href="work-single.html" className="item-wrap fancybox">
-                                <div className="work-info">
-                                    <h3>Amazon</h3>
-                                    <span>brandingn</span>
-                                </div>
-                                <img className="img-fluid" src="/assets/img/img_6.jpg" />
-                            </a>
-                        </div>
+                        {works?.map((e) => (
+                            <div key={e.id} className={`item ${e.category.replace(/\s/g, "-").toLowerCase()} col-sm-6 col-md-4 col-lg-4 mb-4`}>
+                                <Link href={"/works/" + e.id} className="item-wrap fancybox">
+                                    <div className="work-info">
+                                        <h3>{e.title}</h3>
+                                        <span>{e.category}</span>
+                                    </div>
+                                    <div style={{ height: "230px" }} className="overflow-hidden">
+                                        <img className="img-fluid" src={e.image_cover} />
+                                    </div>
+                                </Link>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </section>

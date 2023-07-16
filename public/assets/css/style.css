@@ -6,6 +6,10 @@
 * License: https://bootstrapmade.com/license/
 */
 
+:root {
+  --bs-list-group-bg:white;
+}
+
 * {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
@@ -549,10 +553,13 @@ h6,
 
 .slider-blog img {
   filter: brightness(50%);
+  width: 100%;
+
 }
 
 .darken-img {
   filter: brightness(70%);
+  width: 100%;
 }
 
 .font-white {
@@ -566,4 +573,17 @@ h6,
 .blog-item:hover {
   border: 6px solid #A2FF86;
   color: #A2FF86;
+}
+
+.bg-light , .list-group, .list-group, .breadcrumb a, .list-group a {
+  --bs-list-group-bg: white;
+  color: #0d1e2d;
+}
+
+.table {
+  --bs-table-bg: white;
+}
+
+.list-group .active a {
+  color: white;
 }

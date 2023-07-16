@@ -1,23 +1,70 @@
+import React from "react";
 import Navbar from "./components/Navbar";
 import path from "path"
 import fs from "fs"
 import { globalStore } from "../states/global";
 import { useEffect, useState } from "react";
 import { isEmpty } from "lodash";
+import ReCAPTCHA from "react-google-recaptcha"
+import Swal from "sweetalert2";
+
+
 export async function getServerSideProps() {
     const dir = path.resolve(process.cwd(), "language.json")
     const language_json = JSON.parse(fs.readFileSync(dir).toString())
 
     return {
         props: {
-            language_json
+            language_json,
+            site_key: process.env.SITE_KEY ,
+            base_url: process.env.BASE_URL 
         }
     }
 }
 
-export default function Contact({ language_json }) {
+async function postContact(e, recaptchaRef, base_url) {
+    e.preventDefault()
+    Swal.showLoading()
+    const token = recaptchaRef.current.getValue()
+    if(isEmpty(token)) throw Swal.fire({
+        icon:"error",
+        toast: true,
+        text:"Invalid recaptcha"
+    })
+    const data = {
+        name: e.target[0].value,
+        email: e.target[1].value,
+        subject: e.target[2].value,
+        message: e.target[3].value,
+        token
+    }
+    await fetch(`${base_url}/clients/contact` ,{
+        method:"POST",
+        body:JSON.stringify(data),
+        headers:{
+            "Content-Type":"application/json"
+        }
+    }).catch((err) => {
+        console.error(err)
+        throw Swal.fire({
+            icon:"error",
+            toast: true,
+            text:"Invalid recaptcha"
+        })
+    })
+    Swal.fire({
+        toast: true,
+        title:"Message is success to sent"
+    })
+   window.location.reload()
+}
+
+
+
+export default function Contact({ language_json, site_key, base_url }) {
     const { language, chooseLanguage } = globalStore()
     const [languageJson, setLanguageJson] = useState()
+    const recaptchaRef = React.createRef();
     useEffect(() => {
         // console.log(language === "")
         setLanguageJson(language_json);
@@ -48,23 +95,25 @@ export default function Contact({ language_json }) {
                             <div className="row">
                                 <div className="col-md-6 mb-5 mb-md-0" data-aos="fade-up">
 
-                                    <form action="forms/contact.php" method="post" role="form" className="php-email-form">
+                                    <form onSubmit={async (e) => {
+                                        await postContact(e, recaptchaRef, base_url)
+                                    }} action="" method="post" role="form" className="php-email-form">
 
                                         <div className="row gy-3">
                                             <div className="col-md-6 form-group">
-                                                <label for="name">{languageJson?.contact[language].form.name}</label>
+                                                <label htmlFor="name">{languageJson?.contact[language].form.name}</label>
                                                 <input type="text" name="name" className="form-control" id="name" required />
                                             </div>
                                             <div className="col-md-6 form-group">
-                                                <label for="name">{languageJson?.contact[language].form.email}</label>
+                                                <label htmlFor="name">{languageJson?.contact[language].form.email}</label>
                                                 <input type="email" className="form-control" name="email" id="email" required />
                                             </div>
                                             <div className="col-md-12 form-group">
-                                                <label for="name">Subject</label>
+                                                <label htmlFor="name">Subject</label>
                                                 <input type="text" className="form-control" name="subject" id="subject" required />
                                             </div>
                                             <div className="col-md-12 form-group">
-                                                <label for="name">{languageJson?.contact[language].form.message}</label>
+                                                <label htmlFor="name">{languageJson?.contact[language].form.message}</label>
                                                 <textarea className="form-control" name="message" cols="30" rows="10" required></textarea>
                                             </div>
 
@@ -73,7 +122,12 @@ export default function Contact({ language_json }) {
                                                 <div className="error-message"></div>
                                                 <div className="sent-message">Your message has been sent. Thank you!</div>
                                             </div>
-
+                                            <div className="col-md-12">
+                                                <ReCAPTCHA
+                                                    ref={recaptchaRef}
+                                                    sitekey={site_key}
+                                                />
+                                            </div>
                                             <div className="col-md-6 mt-0 form-group">
                                                 <input type="submit" className="readmore d-block w-100" value={languageJson?.contact[language].form.send_message} />
                                             </div>
@@ -96,6 +150,9 @@ export default function Contact({ language_json }) {
                                         <li className="mb-3">
                                             <strong className="d-block mb-1">Email</strong>
                                             <span>zulfikralahmudin@gmail.com</span>
+                                        </li>
+                                        <li>
+                                            <a href="https://wa.me/+6285156614335" className="btn btn-primary"><i className="bi bi-whatsapp"></i> Hubungi via whatsapp</a>
                                         </li>
                                     </ul>
                                 </div>
