@@ -78,7 +78,7 @@ export default function CreateWorks({ base_url }) {
     useEffect(() => {
         setSession(session);
         (async () => {
-            if (_categories.length === 0 || _categories.length !== works_categories.length) {
+            if (_categories.length !== works_categories.length) {
                 getWorksCategories(base_url, session?.token)
                 setCategories(works_categories)
             }
@@ -123,7 +123,7 @@ export default function CreateWorks({ base_url }) {
                                                 icon: "question",
                                                 input: "text",
                                             }).then(async (res) => {
-                                                if (res.isConfirmed) {
+                                                if (res.isConfirmed && res.value !== "") {
                                                     try {
                                                         const _res = await fetch(`${base_url}/works/category`, {
                                                             method: "POST",
@@ -155,7 +155,7 @@ export default function CreateWorks({ base_url }) {
                                     <input required type="text" placeholder="Link Gambar" className="form-control" />
                                 </div>
                                 <Editor
-                                    editorStyle={{ height: "20em" }}
+                                    editorStyle={{ minHeight: "20em" }}
                                     editorState={editorState}
                                     toolbarClassName="toolbarClassName"
                                     wrapperClassName="wrapperClassName"
