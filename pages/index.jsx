@@ -8,6 +8,7 @@ import Navbar from "./components/Navbar"
 import Works from "./components/Works.jsx"
 import Services from "./components/Services.jsx"
 import Footer from "./components/Footer.jsx"
+import Head from 'next/head';
 
 
 export async function getServerSideProps() {
@@ -19,7 +20,7 @@ export async function getServerSideProps() {
     const res = await fetch(`${process.env.LOCAL_BASE_URL}/works/category`)
       .then((res) => res.json())
     categories = res.data;
-    const works_res =await fetch(`${process.env.LOCAL_BASE_URL}/clients/works`)
+    const works_res = await fetch(`${process.env.LOCAL_BASE_URL}/clients/works`)
       .then((res) => res.json())
     works = works_res.data
   } catch (error) {
@@ -28,7 +29,7 @@ export async function getServerSideProps() {
   return {
     props: {
       language_json,
-      categories, 
+      categories,
       works
     }
   }
@@ -47,6 +48,19 @@ export default function Home({ language_json, categories, works }) {
   }, [])
   return (
     <div>
+      <Head>
+        <meta name="description" content="zulfikra.my.id merupakan website pribadi yang menyediakan informasi blog dan menyediakan jasa dibidang IT maupun Desain 3D" />
+        <meta name="keywords" content="HTML,CSS, javascript, ecmascript, php, node.js, next.js, nextjs, nodejs, postgresql, postgreSQL, CAD, Design, 3D Design"></meta>
+        <meta name="author" content="zulfikra l abdjul"></meta>
+
+        {/* facebook meta tag */}
+        <meta property="og:url" content="https://zulfikra.my.id" />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="zulfikra.my.id" />
+        <meta property="og:description" content="zulfikra.my.id merupakan website pribadi yang menyediakan informasi blog dan menyediakan jasa dibidang IT maupun Desain 3D" />
+        <meta property="og:image" content="https://zulfikra-public-image.s3.us-east-005.backblazeb2.com/2023-06-27_12-09-transformed.png" />
+      </Head>
+
       {/* <!-- ======= Navbar ======= --> */}
 
       <Navbar active={"home"} languageJson={languageJson} />
