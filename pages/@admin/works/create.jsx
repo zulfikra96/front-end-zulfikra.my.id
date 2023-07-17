@@ -84,8 +84,11 @@ export default function CreateWorks({ base_url }) {
             } else if (_categories.length === 0 && works_categories.length !== 0) {
                 getWorksCategories(base_url, session?.token)
                 setCategories(works_categories)
+            } else if (_categories.length === 0) {
+                getWorksCategories(base_url, session?.token)
+                setCategories(works_categories)
             }
-            
+
 
         })()
     }, [worksState.getState().works_categories])
