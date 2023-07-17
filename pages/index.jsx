@@ -50,8 +50,8 @@ export default function Home({ language_json, categories, works }) {
     <div>
       <Head>
         <meta name="description" content="zulfikra.my.id merupakan website pribadi yang menyediakan informasi blog dan menyediakan jasa dibidang IT maupun Desain 3D" />
-        <meta name="keywords" content="HTML,CSS, javascript, ecmascript, php, node.js, next.js, nextjs, nodejs, postgresql, postgreSQL, CAD, Design, 3D Design"></meta>
-        <meta name="author" content="zulfikra l abdjul"></meta>
+        <meta name="keywords" content="HTML,CSS, javascript, ecmascript, php, node.js, next.js, nextjs, nodejs, postgresql, postgreSQL, CAD, Design, 3D Design"/>
+        <meta name="author" content="zulfikra l abdjul"/>
 
         {/* facebook meta tag */}
         <meta property="og:url" content="https://zulfikra.my.id" />
