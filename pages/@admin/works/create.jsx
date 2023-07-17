@@ -78,10 +78,14 @@ export default function CreateWorks({ base_url }) {
     useEffect(() => {
         setSession(session);
         (async () => {
-            if (_categories.length !== works_categories.length) {
+            if (_categories.length === 0 && _categories.length !== works_categories.length) {
+                getWorksCategories(base_url, session?.token)
+                setCategories(works_categories)
+            } else if (_categories.length === 0 && works_categories.length !== 0) {
                 getWorksCategories(base_url, session?.token)
                 setCategories(works_categories)
             }
+            
 
         })()
     }, [worksState.getState().works_categories])
