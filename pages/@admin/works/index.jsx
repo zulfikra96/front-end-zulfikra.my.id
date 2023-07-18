@@ -19,7 +19,7 @@ export function getStaticProps() {
 export default function Blogs({ base_url }) {
     const { session } = userStore()
     const [_session, setSession] = useState(null)
-    const {works, getWorks } = worksState()
+    const { works, getWorks } = worksState()
     const [page, setPage] = useState(1)
     useEffect(() => {
         setSession(session);
@@ -66,11 +66,9 @@ export default function Blogs({ base_url }) {
                                                 </select>
                                             </td>
                                             <td>
-                                                <div className="form-check">
-                                                    <input defaultChecked={e.editor_choice} onChange={(_e) => updateBlogEditorChoice(e.id, _e.currentTarget.checked, _session.token, base_url)} className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    <label  className="form-check-label" htmlFor="flexCheckDefault">
-                                                        Pilih
-                                                    </label>
+                                                <div className="d-flex gap-2">
+                                                    <button className="btn btn-secondary"><Link href={`/@admin/works/${e.id}/edit`}>Edit</Link></button>
+                                                    <button className="btn btn-danger">Hapus</button>
                                                 </div>
                                             </td>
                                             <td></td>

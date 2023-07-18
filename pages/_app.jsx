@@ -1,3 +1,4 @@
+import React from "react"
 import "../public/assets/vendor/aos/aos.css"
 import "../public/assets/vendor/bootstrap/css/bootstrap.min.css"
 import "../public/assets/vendor/bootstrap-icons/bootstrap-icons.css"

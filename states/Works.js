@@ -65,5 +65,22 @@ export const worksState = create((set, get) => ({
                 title: error
             })
         }
+    },
+    getWorksDetail: async (id,token, base_url) => {
+        try {
+            const res = await fetch(`${base_url}/works/${id}`,{
+                headers:{
+                    "Authorization":"Bearer " + token
+                }
+            }).then((res) => res.json())
+            if (res.status_code !== 200) throw res.message
+            set({ works_detail: res.data })
+        } catch (error) {
+            console.log(error)
+            throw Swal.fire({
+                toast: true,
+                title: error
+            })
+        }
     }
 }))

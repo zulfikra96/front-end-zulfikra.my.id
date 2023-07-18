@@ -52,7 +52,7 @@ export default function Works({ language_json, base_url }) {
                                 <Link href={`/works/${e.id}`} className="item-wrap fancybox">
                                     <div className="work-info">
                                         <h3>{e.title}</h3>
-                                        <span>{e.category}</span>
+                                        <span><strong>{e.category}</strong></span>
                                     </div>
                                     <div style={{ height:"230px" }} className="overflow-hidden">
                                         <img className="img-fluid" src={e.image_cover} />

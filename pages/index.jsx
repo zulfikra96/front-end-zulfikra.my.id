@@ -49,9 +49,6 @@ export default function Home({ language_json, categories, works }) {
   return (
     <div>
       <Head>
-        <meta name="description" content="zulfikra.my.id merupakan website pribadi yang menyediakan informasi blog dan menyediakan jasa dibidang IT maupun Desain 3D" />
-        <meta name="keywords" content="HTML,CSS, javascript, ecmascript, php, node.js, next.js, nextjs, nodejs, postgresql, postgreSQL, CAD, Design, 3D Design"/>
-        <meta name="author" content="zulfikra l abdjul"/>
 
         {/* facebook meta tag */}
         <meta property="og:url" content="https://zulfikra.my.id" />
@@ -59,6 +56,12 @@ export default function Home({ language_json, categories, works }) {
         <meta property="og:title" content="zulfikra.my.id" />
         <meta property="og:description" content="zulfikra.my.id merupakan website pribadi yang menyediakan informasi blog dan menyediakan jasa dibidang IT maupun Desain 3D" />
         <meta property="og:image" content="https://zulfikra-public-image.s3.us-east-005.backblazeb2.com/2023-06-27_12-09-transformed.png" />
+
+        <meta name="description" content="zulfikra.my.id merupakan website pribadi yang menyediakan informasi blog dan menyediakan jasa dibidang IT maupun Desain 3D" />
+        <meta name="keywords" content="HTML,CSS, javascript, ecmascript, php, node.js, next.js, nextjs, nodejs, postgresql, postgreSQL, CAD, Design, 3D Design"/>
+        <meta name="author" content="zulfikra l abdjul"/>
+
+        
       </Head>
 
       {/* <!-- ======= Navbar ======= --> */}
