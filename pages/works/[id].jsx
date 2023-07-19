@@ -53,7 +53,7 @@ export default function Detail({ base_url, language_json, data }) {
     return (
         <div>
             <Head>
-                <meta property="og:url" content="https://zulfikra.my.id" />
+                <meta property="og:url" content={`https://zulfikra.my.id/works/${data?.id}`} />
                 <meta property="og:type" content="article" />
                 <meta property="og:title" content={data?.title} />
                 <meta property="og:description" content={data?.meta_description} />
