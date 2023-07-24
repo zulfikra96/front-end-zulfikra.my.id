@@ -11,11 +11,13 @@ import Footer from "./components/Footer.jsx"
 import Head from 'next/head';
 
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ req }) {
   const dir = path.resolve(process.cwd(), "language.json")
   const language_json = JSON.parse(fs.readFileSync(dir).toString())
   let categories = []
   let works = []
+  const forwarded = req.headers["x-forwarded-for"]
+  const ip = forwarded ? forwarded.split(/, /)[0] : req.connection.remoteAddress
   try {
     const res = await fetch(`${process.env.LOCAL_BASE_URL}/works/category`)
       .then((res) => res.json())
@@ -26,11 +28,12 @@ export async function getServerSideProps() {
     setTimeout(() => {
       fetch(`${process.env.LOCAL_BASE_URL}/analytics/visitors`, {
         method: "POST",
-        headers:{
-          "Content-type":"application/json"
+        headers: {
+          "Content-type": "application/json"
         },
         body: JSON.stringify({
-          path: "/"
+          path: "/",
+          ip
         })
       })
     })
