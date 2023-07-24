@@ -20,6 +20,19 @@ export async function getServerSideProps(context) {
             method: "GET"
         }).then((res) => res.json())
         data = res.data
+
+        setTimeout(() => {
+            fetch(`${process.env.LOCAL_BASE_URL}/analytics/visitors`, {
+              method: "POST",
+              headers:{
+                "Content-type":"application/json"
+              },
+              body: JSON.stringify({
+                path: `/works/${id}`
+              })
+            }).catch((Err) => console.error(Err))
+          })
+          
     } catch (error) {
         console.log(error)
 
@@ -62,7 +75,6 @@ export default function Detail({ base_url, language_json, data }) {
                 <meta name="description" content={data?.meta_description} />
                 <meta name="keywords" content={data?.meta_keywords} />
                 <meta name="author" content="zulfikra l abdjul" />
-
             </Head>
             <Navbar languageJson={languageJson} />
             <main id="main">

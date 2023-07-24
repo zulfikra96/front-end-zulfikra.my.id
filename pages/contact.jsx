@@ -12,7 +12,17 @@ import Swal from "sweetalert2";
 export async function getServerSideProps() {
     const dir = path.resolve(process.cwd(), "language.json")
     const language_json = JSON.parse(fs.readFileSync(dir).toString())
-
+    setTimeout(() => {
+        fetch(`${process.env.LOCAL_BASE_URL}/analytics/visitors`, {
+          method: "POST",
+          headers:{
+            "Content-type":"application/json"
+          },
+          body: JSON.stringify({
+            path: "/contact"
+          })
+        })
+      })
     return {
         props: {
             language_json,

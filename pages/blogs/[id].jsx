@@ -20,6 +20,20 @@ export async function getServerSideProps() {
     const language_json = JSON.parse(fs.readFileSync(dir).toString())
     // console.log(typeof language_json)
     // console.log(dir)
+    const id = context.query.id
+
+    setTimeout(() => {
+        fetch(`${process.env.LOCAL_BASE_URL}/analytics/visitors`, {
+          method: "POST",
+          headers:{
+            "Content-type":"application/json"
+          },
+          body: JSON.stringify({
+            path: `/blogs/${id}`
+          })
+        }).catch((Err) => console.error(Err))
+      })
+
     return {
         props: {
             language_json,

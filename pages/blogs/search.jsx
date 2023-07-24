@@ -11,10 +11,23 @@ import NavbarBlog from "./components/Navbar";
 import MostRead from "./components/MostRead";
 import { NextRouter, useRouter } from "next/router";
 import { blogStore } from "../../states/Blogs";
+
 export async function getServerSideProps() {
 
     const dir = path.resolve(process.cwd(), "language.json")
     const language_json = JSON.parse(fs.readFileSync(dir).toString())
+
+    setTimeout(() => {
+        fetch(`${process.env.LOCAL_BASE_URL}/analytics/visitors`, {
+          method: "POST",
+          headers:{
+            "Content-type":"application/json"
+          },
+          body: JSON.stringify({
+            path: `/search`
+          })
+        }).catch((Err) => console.error(Err))
+      })
 
     return {
         props: {
