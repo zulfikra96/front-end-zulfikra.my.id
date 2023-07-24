@@ -16,16 +16,20 @@ export async function getServerSideProps({ req }) {
   const language_json = JSON.parse(fs.readFileSync(dir).toString())
   let categories = []
   let works = []
-  const forwarded = req.headers["x-forwarded-for"]
-  const ip = forwarded ? forwarded.split(/, /)[0] : req.connection.remoteAddress
+
   try {
+    
+      // .then(data => console.log(data.ip));
     const res = await fetch(`${process.env.LOCAL_BASE_URL}/works/category`)
       .then((res) => res.json())
     categories = res.data;
     const works_res = await fetch(`${process.env.LOCAL_BASE_URL}/clients/works`)
       .then((res) => res.json())
     works = works_res.data
-    setTimeout(() => {
+    
+    setTimeout(async () => {
+      const apify = await fetch('https://api.ipify.org?format=json')
+      .then(response => response.json())
       fetch(`${process.env.LOCAL_BASE_URL}/analytics/visitors`, {
         method: "POST",
         headers: {
@@ -33,7 +37,7 @@ export async function getServerSideProps({ req }) {
         },
         body: JSON.stringify({
           path: "/",
-          ip
+          ip:apify.ip
         })
       })
     })

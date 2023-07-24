@@ -21,16 +21,19 @@ export async function getServerSideProps(context) {
         }).then((res) => res.json())
         data = res.data
 
-        setTimeout(() => {
+        setTimeout(async () => {
+            const apify = await fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
             fetch(`${process.env.LOCAL_BASE_URL}/analytics/visitors`, {
               method: "POST",
-              headers:{
-                "Content-type":"application/json"
+              headers: {
+                "Content-type": "application/json"
               },
               body: JSON.stringify({
-                path: `/works/${id}`
+                path: `/works/${id}`,
+                ip:apify.ip
               })
-            }).catch((Err) => console.error(Err))
+            })
           })
           
     } catch (error) {

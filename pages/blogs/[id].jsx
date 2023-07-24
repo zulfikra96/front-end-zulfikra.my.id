@@ -14,7 +14,7 @@ import { formatRelative, subDays } from "date-fns";
 import { id } from "date-fns/locale";
 import Link from "next/link";
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
     // console.log(language_json)
     const dir = path.resolve(process.cwd(), "language.json")
     const language_json = JSON.parse(fs.readFileSync(dir).toString())
@@ -22,16 +22,19 @@ export async function getServerSideProps() {
     // console.log(dir)
     const id = context.query.id
 
-    setTimeout(() => {
+    setTimeout(async () => {
+        const apify = await fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
         fetch(`${process.env.LOCAL_BASE_URL}/analytics/visitors`, {
           method: "POST",
-          headers:{
-            "Content-type":"application/json"
+          headers: {
+            "Content-type": "application/json"
           },
           body: JSON.stringify({
-            path: `/blogs/${id}`
+            path: `/blogs/${id}`,
+            ip:apify.ip
           })
-        }).catch((Err) => console.error(Err))
+        })
       })
 
     return {
