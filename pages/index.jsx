@@ -27,10 +27,47 @@ export async function getServerSideProps({ req }) {
       .then((res) => res.json())
     works = works_res.data
 
+    // setTimeout(async () => {
+    //   const apify = await fetch('https://api.ipify.org?format=json')
+    //     .then(response => response.json())
+    //   fetch(`${process.env.LOCAL_BASE_URL}/analytics/visitors`, {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-type": "application/json"
+    //     },
+    //     body: JSON.stringify({
+    //       path: "/",
+    //       ip: apify.ip
+    //     })
+    //   })
+    // })
+  } catch (error) {
+    console.error(error)
+  }
+  return {
+    props: {
+      language_json,
+      categories,
+      works,
+      base_url: process.env.LOCAL_BASE_URL
+    }
+  }
+}
+
+export default function Home({ language_json, categories, works, base_url }) {
+  const { language, chooseLanguage } = globalStore()
+  const [languageJson, setLanguageJson] = useState()
+  useEffect(() => {
+    // console.log(language === "")
+    setLanguageJson(language_json);
+    if (isEmpty(language)) {
+      chooseLanguage("indonesia");
+    }
+
     setTimeout(async () => {
       const apify = await fetch('https://api.ipify.org?format=json')
         .then(response => response.json())
-      fetch(`${process.env.LOCAL_BASE_URL}/analytics/visitors`, {
+      fetch(`${base_url}/analytics/visitors`, {
         method: "POST",
         headers: {
           "Content-type": "application/json"
@@ -41,27 +78,6 @@ export async function getServerSideProps({ req }) {
         })
       })
     })
-  } catch (error) {
-    console.error(error)
-  }
-  return {
-    props: {
-      language_json,
-      categories,
-      works
-    }
-  }
-}
-
-export default function Home({ language_json, categories, works }) {
-  const { language, chooseLanguage } = globalStore()
-  const [languageJson, setLanguageJson] = useState()
-  useEffect(() => {
-    // console.log(language === "")
-    setLanguageJson(language_json);
-    if (isEmpty(language)) {
-      chooseLanguage("indonesia");
-    }
 
   }, [])
   return (
