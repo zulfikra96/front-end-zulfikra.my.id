@@ -9,6 +9,7 @@ import path from "path";
 import fs from "fs"
 import { worksState } from "../../states/Works";
 import Link from "next/link";
+import Author from "../components/Author";
 
 export async function getServerSideProps() {
     const dir = path.resolve(process.cwd(), "language.json")
@@ -78,6 +79,7 @@ export default function Works({ language_json, base_url }) {
 
                 </div>
             </main>
+            <Author/>
             <Footer />
         </div>
     )

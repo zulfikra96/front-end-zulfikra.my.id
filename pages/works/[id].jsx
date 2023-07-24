@@ -7,6 +7,8 @@ import _ from "lodash";
 import { globalStore } from "../../states/global";
 import { worksState } from "../../states/Works";
 import { useRouter } from "next/router";
+import Footer from "../components/Footer";
+import Author from "../components/Author";
 const { isEmpty } = _
 
 
@@ -120,6 +122,8 @@ export default function Detail({ base_url, language_json, data }) {
                 </section>
 
             </main>
+            <Author/>
+            <Footer/>
         </div>
     )
 }

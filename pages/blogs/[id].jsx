@@ -13,6 +13,8 @@ import { useRouter } from 'next/router';
 import { formatRelative, subDays } from "date-fns";
 import { id } from "date-fns/locale";
 import Link from "next/link";
+import Footer from "../components/Footer";
+import Author from "../components/Author";
 
 export async function getServerSideProps(context) {
     // console.log(language_json)
@@ -94,6 +96,9 @@ export default function Detail({ language_json, base_url }) {
                     </div>
                 </div>
             </main>
+            
+            <Author/>
+            <Footer/>
         </div>
     )
 }

@@ -11,6 +11,7 @@ import NavbarBlog from "./components/Navbar";
 import MostRead from "./components/MostRead";
 import { NextRouter, useRouter } from "next/router";
 import { blogStore } from "../../states/Blogs";
+import Author from "../components/Author";
 export async function getServerSideProps() {
 
     const dir = path.resolve(process.cwd(), "language.json")
@@ -115,6 +116,8 @@ export default function Search({ language_json, base_url }) {
                     </div>
                 </div>
             </main>
+            <Author/>
+            <Footer/>
         </div>
     )
 }

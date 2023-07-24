@@ -12,6 +12,7 @@ import Link from "next/link";
 import { blogStore } from "../../states/Blogs";
 import { formatRelative, subDays } from "date-fns"
 import { id } from "date-fns/locale";
+import Author from "../components/Author";
 
 export async function getServerSideProps() {
     const dir = path.resolve(process.cwd(), "language.json")
@@ -147,6 +148,7 @@ export default function Blogs({ language_json, base_url }) {
                     </div>
                 </div>
             </main>
+            <Author/>
             <Footer />
         </div>
     )

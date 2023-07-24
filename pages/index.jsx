@@ -18,18 +18,18 @@ export async function getServerSideProps({ req }) {
   let works = []
 
   try {
-    
-      // .then(data => console.log(data.ip));
+
+    // .then(data => console.log(data.ip));
     const res = await fetch(`${process.env.LOCAL_BASE_URL}/works/category`)
       .then((res) => res.json())
     categories = res.data;
     const works_res = await fetch(`${process.env.LOCAL_BASE_URL}/clients/works`)
       .then((res) => res.json())
     works = works_res.data
-    
+
     setTimeout(async () => {
       const apify = await fetch('https://api.ipify.org?format=json')
-      .then(response => response.json())
+        .then(response => response.json())
       fetch(`${process.env.LOCAL_BASE_URL}/analytics/visitors`, {
         method: "POST",
         headers: {
@@ -37,7 +37,7 @@ export async function getServerSideProps({ req }) {
         },
         body: JSON.stringify({
           path: "/",
-          ip:apify.ip
+          ip: apify.ip
         })
       })
     })
@@ -125,7 +125,7 @@ export default function Home({ language_json, categories, works }) {
         {/* <!-- End Clients Section --> */}
 
         <Services languageJson={languageJson} />
-
+       
       </main>
       {/* <!-- End #main --> */}
 
