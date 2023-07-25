@@ -88,7 +88,7 @@ export default function Detail({ language_json, base_url }) {
                             <h4>{blog_detail.title}</h4>
                             <span className="text-dark">{(blog_detail.created_at) ? formatRelative(subDays(new Date(blog_detail.created_at), 3), new Date(), { locale: id }) : ''}</span>
                             <img className="img-fluid mb-4" src={blog_detail.image_cover} alt="" />
-                            <div style={{ background: "#fff" }} className="p-2" dangerouslySetInnerHTML={{ __html: blog_detail.description }}>
+                            <div style={{ background: "#fff" }} className="p-2 text-dark" dangerouslySetInnerHTML={{ __html: blog_detail.description }}>
 
                             </div>
                             <br />

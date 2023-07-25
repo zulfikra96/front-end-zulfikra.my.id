@@ -29,8 +29,10 @@ async function postBlog(e, description, base_url, token, callback) {
         category_id: e.target[1].value,
         tags: (/[,]/g.test(e.target[3].value)) ? e.target[3].value.split(",") : [e.target[3].value],
         image_cover: e.target[4].value,
+        meta_keywords: e.target[5].value,
+        meta_description: e.target[6].value,
         description: description,
-        is_posted: /true/.test(e.target[5].value)
+        is_posted: /true/.test(e.target[7].value)
     }
     try {
         Swal.showLoading()
@@ -47,6 +49,10 @@ async function postBlog(e, description, base_url, token, callback) {
             toast: true,
             title: "Sukses",
             text: res.message
+        }).then((res) => {
+            if(res.isConfirmed){
+                window.location.href = "/@admin/blogs"
+            }
         })
         return callback()
 
@@ -157,8 +163,16 @@ export default function CreateBlog({ base_url }) {
                                     <label htmlFor="">Gambar Sampul</label>
                                     <input required type="text" placeholder="Link Gambar" className="form-control" />
                                 </div>
+                                <div className="mb-4">
+                                    <label htmlFor="">Meta Keywords</label>
+                                    <input type="text" required className="form-control" />
+                                </div>
+                                <div className="mb-4">
+                                    <label htmlFor="">Meta Description</label>
+                                    <input type="text" required className="form-control" />
+                                </div>
                                 <Editor
-                                    editorStyle={{ height: "20em" }}
+                                     editorStyle={{ minHeight: "20em" }}
                                     editorState={editorState}
                                     toolbarClassName="toolbarClassName"
                                     wrapperClassName="wrapperClassName"
