@@ -42,6 +42,11 @@ export default function Detail({ language_json, base_url }) {
         if (isEmpty(language)) {
             chooseLanguage("indonesia");
         }
+        const images = document.getElementsByTagName("img")
+        for (let i = 0; i < images.length; i++) {
+            images[i].classList.add("img-fluid")
+
+        }
         (async () => {
             await getClientBlogDetail(router.query.id, base_url)
             await getClientBlogs(base_url)
@@ -100,9 +105,9 @@ export default function Detail({ language_json, base_url }) {
                     </div>
                 </div>
             </main>
-            
-            <Author/>
-            <Footer/>
+
+            <Author />
+            <Footer />
         </div>
     )
 }
