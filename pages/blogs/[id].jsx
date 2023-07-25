@@ -42,11 +42,13 @@ export default function Detail({ language_json, base_url }) {
         if (isEmpty(language)) {
             chooseLanguage("indonesia");
         }
-        const images = document.getElementsByTagName("img")
-        for (let i = 0; i < images.length; i++) {
-            images[i].classList.add("img-fluid")
-
-        }
+        setTimeout(() => {
+            const images = document.getElementsByTagName("img")
+            for (let i = 0; i < images.length; i++) {
+                images[i].classList.add("img-fluid")
+    
+            }
+        },200);
         (async () => {
             await getClientBlogDetail(router.query.id, base_url)
             await getClientBlogs(base_url)
