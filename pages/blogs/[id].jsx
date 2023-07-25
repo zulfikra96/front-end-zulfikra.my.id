@@ -50,12 +50,10 @@ export default function Detail({ language_json, base_url, content }) {
         if (isEmpty(language)) {
             chooseLanguage("indonesia");
         }
-        setTimeout(() => {
-            const images = document.getElementsByTagName("img")
-            for (let i = 0; i < images.length; i++) {
-                images[i].classList.add("img-fluid")
-            }
-        }, 200);
+        const images = document.getElementsByTagName("img")
+        for (let i = 0; i < images.length; i++) {
+            images[i].classList.add("img-fluid")
+        }
         (async () => {
             await getClientBlogs(base_url)
             // console.log(router)
