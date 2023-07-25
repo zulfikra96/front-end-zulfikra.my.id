@@ -115,7 +115,7 @@ export default function Detail({ language_json, base_url, content }) {
                             </div>
                             <br />
                             <div className="bg-light">
-                                <div className="fb-comments" data-href="https://developers.facebook.com/docs/plugins/comments#configurator" data-width="" data-numposts="5"></div>
+                                <div className="fb-comments" data-href={`https://zulfikra.my.id/blogs/${content.slug}`} data-width="" data-numposts="5"></div>
                             </div>
                         </div>
                         <MostRead most_popular={most_popular} />
