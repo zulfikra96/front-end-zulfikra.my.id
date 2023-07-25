@@ -15,6 +15,7 @@ import { id } from "date-fns/locale";
 import Link from "next/link";
 import Footer from "../components/Footer";
 import Author from "../components/Author";
+import Head from "next/head";
 
 export async function getServerSideProps(context) {
     // console.log(language_json)
@@ -23,16 +24,23 @@ export async function getServerSideProps(context) {
     // console.log(typeof language_json)
     // console.log(dir)
     const id = context.query.id
-
+    let content = ""
+    try {
+        const res = await fetch(`${process.env.LOCAL_BASE_URL}/clients/blogs/${context.query.id}`).then((res) => res.json())
+        content = res.data
+    } catch (error) {
+       console.error(error);
+    }
     return {
         props: {
+            content: content || {},
             language_json,
             base_url: process.env.BASE_URL
         }
     }
 }
 
-export default function Detail({ language_json, base_url }) {
+export default function Detail({ language_json, base_url, content }) {
     const { language, chooseLanguage } = globalStore()
     const [languageJson, setLanguageJson] = useState()
     const { most_popular, blog_detail, getClientBlogDetail, getClientBlogs } = blogStore()
@@ -46,11 +54,9 @@ export default function Detail({ language_json, base_url }) {
             const images = document.getElementsByTagName("img")
             for (let i = 0; i < images.length; i++) {
                 images[i].classList.add("img-fluid")
-    
             }
-        },200);
+        }, 200);
         (async () => {
-            await getClientBlogDetail(router.query.id, base_url)
             await getClientBlogs(base_url)
             // console.log(router)
         })()
@@ -76,6 +82,17 @@ export default function Detail({ language_json, base_url }) {
     }, [])
     return (
         <div>
+            <Head>
+            <meta property="og:url" content={`https://zulfikra.my.id/blogs/${content?.slug}`} />
+                <meta property="og:type" content="article" />
+                <meta property="og:title" content={content?.title} />
+                <meta property="og:description" content={content?.meta_description} />
+                <meta property="og:image" content={content?.image_cover} />
+
+                <meta name="description" content={content?.meta_description} />
+                <meta name="keywords" content={content?.meta_keywords} />
+                <meta name="author" content="zulfikra l abdjul" />
+            </Head>
             <Script async defer crossorigin="anonymous" src="https://connect.facebook.net/id_ID/sdk.js#xfbml=1&version=v17.0&appId=706452909524459&autoLogAppEvents=1" nonce="rGnDUPIB"></Script>
             <Navbar active={"blog"} languageJson={languageJson} />
             <main id="main">
@@ -92,10 +109,10 @@ export default function Detail({ language_json, base_url }) {
                     </div>
                     <div className="row ">
                         <div className="d-flex col-md-8 col-12 col-xs-12 flex-column">
-                            <h4>{blog_detail.title}</h4>
-                            <span className="text-dark">{(blog_detail.created_at) ? formatRelative(subDays(new Date(blog_detail.created_at), 3), new Date(), { locale: id }) : ''}</span>
-                            <img className="img-fluid mb-4" src={blog_detail.image_cover} alt="" />
-                            <div style={{ background: "#fff" }} className="p-2 text-dark" dangerouslySetInnerHTML={{ __html: blog_detail.description }}>
+                            <h4>{content.title}</h4>
+                            <span className="text-dark">{(content.created_at) ? formatRelative(subDays(new Date(content.created_at), 3), new Date(), { locale: id }) : ''}</span>
+                            <img className="img-fluid mb-4" src={content.image_cover} alt="" />
+                            <div style={{ background: "#fff" }} className="p-2 text-dark" dangerouslySetInnerHTML={{ __html: content.description }}>
 
                             </div>
                             <br />
