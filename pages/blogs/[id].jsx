@@ -24,21 +24,6 @@ export async function getServerSideProps(context) {
     // console.log(dir)
     const id = context.query.id
 
-    setTimeout(async () => {
-        const apify = await fetch('https://api.ipify.org?format=json')
-        .then(response => response.json())
-        fetch(`${process.env.LOCAL_BASE_URL}/analytics/visitors`, {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json"
-          },
-          body: JSON.stringify({
-            path: `/blogs/${id}`,
-            ip:apify.ip
-          })
-        })
-      })
-
     return {
         props: {
             language_json,
@@ -62,6 +47,25 @@ export default function Detail({ language_json, base_url }) {
             await getClientBlogs(base_url)
             // console.log(router)
         })()
+
+        setTimeout(async () => {
+            const apify = await fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+            const base = Buffer.from(JSON.stringify({
+                path: `/blogs/${router.query.id}`,
+                ip: apify.ip
+            })).toString("base64");
+            await fetch(`${base_url}/analytics/visitors`, {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify({
+                    data: base
+                })
+            })
+        })
+
     }, [])
     return (
         <div>

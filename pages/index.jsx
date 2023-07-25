@@ -49,7 +49,7 @@ export async function getServerSideProps({ req }) {
       language_json,
       categories,
       works,
-      base_url: process.env.LOCAL_BASE_URL
+      base_url: process.env.BASE_URL
     }
   }
 }
@@ -67,14 +67,17 @@ export default function Home({ language_json, categories, works, base_url }) {
     setTimeout(async () => {
       const apify = await fetch('https://api.ipify.org?format=json')
         .then(response => response.json())
-      fetch(`${base_url}/analytics/visitors`, {
+      const base = Buffer.from(JSON.stringify({
+        path: "/",
+        ip: apify.ip
+      })).toString("base64");
+      await fetch(`${base_url}/analytics/visitors`, {
         method: "POST",
         headers: {
           "Content-type": "application/json"
         },
         body: JSON.stringify({
-          path: "/",
-          ip: apify.ip
+          data: base
         })
       })
     })
@@ -141,7 +144,7 @@ export default function Home({ language_json, categories, works, base_url }) {
         {/* <!-- End Clients Section --> */}
 
         <Services languageJson={languageJson} />
-       
+
       </main>
       {/* <!-- End #main --> */}
 

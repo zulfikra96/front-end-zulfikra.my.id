@@ -22,21 +22,6 @@ export async function getServerSideProps(context) {
             method: "GET"
         }).then((res) => res.json())
         data = res.data
-
-        setTimeout(async () => {
-            const apify = await fetch('https://api.ipify.org?format=json')
-            .then(response => response.json())
-            fetch(`${process.env.LOCAL_BASE_URL}/analytics/visitors`, {
-              method: "POST",
-              headers: {
-                "Content-type": "application/json"
-              },
-              body: JSON.stringify({
-                path: `/works/${id}`,
-                ip:apify.ip
-              })
-            })
-          })
           
     } catch (error) {
         console.log(error)
@@ -67,6 +52,26 @@ export default function Detail({ base_url, language_json, data }) {
             images[i].classList.add("img-fluid")
             
         }
+
+        setTimeout(async () => {
+            const apify = await fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+            const base = Buffer.from(JSON.stringify({
+                path: "/about",
+                ip: apify.ip
+            })).toString("base64");
+            await fetch(`${base_url}/analytics/visitors`, {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify({
+                    data: base
+                })
+            })
+        })
+
+
     }, [])
     return (
         <div>

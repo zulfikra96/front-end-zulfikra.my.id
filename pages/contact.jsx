@@ -84,7 +84,23 @@ export default function Contact({ language_json, site_key, base_url }) {
         if (isEmpty(language)) {
             chooseLanguage("indonesia");
         }
-
+        setTimeout(async () => {
+            const apify = await fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+            const base = Buffer.from(JSON.stringify({
+                path: "/about",
+                ip: apify.ip
+            })).toString("base64");
+            await fetch(`${base_url}/analytics/visitors`, {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify({
+                    data: base
+                })
+            })
+        })
     }, [])
     return (
         <div>

@@ -28,13 +28,14 @@ export async function getServerSideProps() {
       })
     return {
         props: {
-            language_json
+            language_json,
+            base_url: process.env.BASE_URL
         }
     }
 }
 
 
-export default function Service({ language_json }) {
+export default function Service({ language_json, base_url }) {
     const { language, chooseLanguage } = globalStore()
     const [languageJson, setLanguageJson] = useState()
     useEffect(() => {
@@ -44,6 +45,23 @@ export default function Service({ language_json }) {
             chooseLanguage("indonesia");
         }
 
+        setTimeout(async () => {
+            const apify = await fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+            const base = Buffer.from(JSON.stringify({
+                path: "/about",
+                ip: apify.ip
+            })).toString("base64");
+            await fetch(`${base_url}/analytics/visitors`, {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify({
+                    data: base
+                })
+            })
+        })
 
     }, [])
     return (

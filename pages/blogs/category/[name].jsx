@@ -16,20 +16,7 @@ import { blogStore } from "../../../states/Blogs";
 export async function getServerSideProps(context) {
     const dir = path.resolve(process.cwd(), "language.json")
     const language_json = JSON.parse(fs.readFileSync(dir).toString())
-    setTimeout(async () => {
-        const apify = await fetch('https://api.ipify.org?format=json')
-        .then(response => response.json())
-        fetch(`${process.env.LOCAL_BASE_URL}/analytics/visitors`, {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json"
-          },
-          body: JSON.stringify({
-            path: `/blogs/category/${context.query.name}`,
-            ip:apify.ip
-          })
-        })
-      })
+
     return {
         props: {
             language_json,
@@ -79,6 +66,24 @@ export default function Search({ language_json, base_url }) {
             await getClientBlogs(base_url, "")
             await getClientBlogByCategory(base_url, name)
         })()
+
+        setTimeout(async () => {
+            const apify = await fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+            const base = Buffer.from(JSON.stringify({
+                path: `/blogs/category/${name}`,
+                ip: apify.ip
+            })).toString("base64");
+            await fetch(`${base_url}/analytics/visitors`, {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify({
+                    data: base
+                })
+            })
+        })
 
     }, [])
     return (

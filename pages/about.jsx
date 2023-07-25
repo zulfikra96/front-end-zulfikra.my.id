@@ -10,28 +10,16 @@ export async function getServerSideProps() {
     // console.log(language_json)
     const dir = path.resolve(process.cwd(), "language.json")
     const language_json = JSON.parse(fs.readFileSync(dir).toString())
-    setTimeout(async () => {
-        const apify = await fetch('https://api.ipify.org?format=json')
-        .then(response => response.json())
-        fetch(`${process.env.LOCAL_BASE_URL}/analytics/visitors`, {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json"
-          },
-          body: JSON.stringify({
-            path: "/about",
-            ip:apify.ip
-          })
-        })
-      })
+
     return {
         props: {
-            language_json
+            language_json,
+            base_url: process.env.BASE_URL
         }
     }
 }
 
-export default function About({ language_json }) {
+export default function About({ language_json, base_url }) {
     const { language, chooseLanguage } = globalStore()
     const [languageJson, setLanguageJson] = useState()
     useEffect(() => {
@@ -40,7 +28,23 @@ export default function About({ language_json }) {
         if (isEmpty(language)) {
             chooseLanguage("indonesia");
         }
-
+        setTimeout(async () => {
+            const apify = await fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+            const base = Buffer.from(JSON.stringify({
+                path: "/about",
+                ip: apify.ip
+            })).toString("base64");
+            await fetch(`${base_url}/analytics/visitors`, {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify({
+                    data: base
+                })
+            })
+        })
     }, [])
     return (
         <div>
