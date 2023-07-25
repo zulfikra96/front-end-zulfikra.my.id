@@ -57,7 +57,7 @@ export default function Detail({ base_url, language_json, data }) {
             const apify = await fetch('https://api.ipify.org?format=json')
                 .then(response => response.json())
             const base = Buffer.from(JSON.stringify({
-                path: "/about",
+                path: `/works/${router.query.id}`,
                 ip: apify.ip
             })).toString("base64");
             await fetch(`${base_url}/analytics/visitors`, {
