@@ -3,7 +3,7 @@ export default function Author() {
     return (
         <div style={{marginTop:"10em"}} className="container">
             <div className="row">
-                <div className="card col-md-6 p-4 ms-auto mb-5">
+                <div className="card col-md-6 p-4  mb-5">
                     <div className="row">
                         <div className="col-md-8">
                             <h5><strong>Zulfikra L Abdjul</strong></h5>

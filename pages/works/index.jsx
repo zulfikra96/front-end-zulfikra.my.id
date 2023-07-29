@@ -79,7 +79,6 @@ export default function Works({ language_json, base_url }) {
                                 </Link>
                             </div>
                         ))}
-
                     </div>
 
                 </div>

@@ -6,19 +6,22 @@
 * License: https://bootstrapmade.com/license/
 */
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&family=Rubik:wght@300&display=swap');
+
 :root {
-  --bs-list-group-bg:white;
+  --bs-list-group-bg: white;
 }
 
 * {
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: 'Roboto', sans-serif;
+  font-family: 'Rubik', sans-serif;
 }
 
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
 .bg-dark {
-  background-color: #0d1e2d;  
+  background-color: #0d1e2d;
 }
 
 .font-dark {
@@ -29,13 +32,16 @@
   color: #fff;
 }
 
-.bg-dark a, .bg-dark a:hover, .btn-green{
+.bg-dark a,
+.bg-dark a:hover,
+.btn-green {
   color: #A2FF86;
-  
+
 }
 
 body {
-  font-family: "Inconsolata", monospace;
+  font-family: 'Roboto', sans-serif;
+  font-family: 'Rubik', sans-serif;
   color: #A2FF86;
 }
 
@@ -50,7 +56,8 @@ body {
 
 
 a {
-  font-family: "Inconsolata", monospace;
+  font-family: 'Roboto', sans-serif;
+  font-family: 'Rubik', sans-serif;
   color: #A2FF86;
   text-decoration: none;
 }
@@ -66,7 +73,8 @@ h4,
 h5,
 h6,
 .font-heading {
-  font-family: "Raleway", sans-serif;
+  font-family: 'Roboto', sans-serif;
+  font-family: 'Rubik', sans-serif;
 }
 
 .section {
@@ -357,6 +365,14 @@ h6,
   animation: animate-loading 1s linear infinite;
 }
 
+.blogs {
+  font-size: larger;
+  padding: 12px;
+}
+
+.title {
+  font-weight: bold;
+}
 @keyframes animate-loading {
   0% {
     transform: rotate(0deg);
@@ -575,7 +591,11 @@ h6,
   color: #A2FF86;
 }
 
-.bg-light , .list-group, .list-group, .breadcrumb a, .list-group a {
+.bg-light,
+.list-group,
+.list-group,
+.breadcrumb a,
+.list-group a {
   --bs-list-group-bg: white;
   color: #0d1e2d;
 }

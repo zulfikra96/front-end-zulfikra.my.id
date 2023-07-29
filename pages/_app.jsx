@@ -6,20 +6,22 @@ import "../public/assets/vendor/swiper/swiper-bundle.min.css"
 import "../public/assets/css/style.css"
 import Head from "next/head"
 
+
 import Script from "next/script"
 export default function MyApp({ Component, pageProps }) {
     return (
         <>
             <Head>
+               
                 <link rel="shortcut icon" href="../zulfikra.png" />
             </Head>
             <Component {...pageProps} />
             <Script strategy="beforeInteractive" src="/assets/vendor/aos/aos.js" />
             <Script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js" />
             <Script strategy="beforeInteractive" src="/assets/vendor/isotope-layout/isotope.pkgd.min.js" />
-            <Script src="/assets/vendor/php-email-form/validate.js" />  
+            <Script src="/assets/vendor/php-email-form/validate.js" />
             <Script strategy="beforeInteractive" src="/assets/vendor/swiper/swiper-bundle.min.js" />
-            <Script  src="/assets/js/main.js" />
+            <Script src="/assets/js/main.js" />
         </>
     )
 }

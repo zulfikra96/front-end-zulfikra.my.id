@@ -29,7 +29,7 @@ export async function getServerSideProps(context) {
         const res = await fetch(`${process.env.LOCAL_BASE_URL}/clients/blogs/${context.query.id}`).then((res) => res.json())
         content = res.data
     } catch (error) {
-       console.error(error);
+        console.error(error);
     }
     return {
         props: {
@@ -81,7 +81,7 @@ export default function Detail({ language_json, base_url, content }) {
     return (
         <div>
             <Head>
-            <meta property="og:url" content={`https://zulfikra.my.id/blogs/${content?.slug}`} />
+                <meta property="og:url" content={`https://zulfikra.my.id/blogs/${content?.slug}`} />
                 <meta property="og:type" content="article" />
                 <meta property="og:title" content={content?.title} />
                 <meta property="og:description" content={content?.meta_description} />
@@ -90,6 +90,11 @@ export default function Detail({ language_json, base_url, content }) {
                 <meta name="description" content={content?.meta_description} />
                 <meta name="keywords" content={content?.meta_keywords} />
                 <meta name="author" content="zulfikra l abdjul" />
+
+                <meta name="twitter:title" content={content?.title}/>
+                <meta name="twitter:description" content={content?.meta_description} />
+                <meta name="twitter:image" content={content?.image_cover} />
+                <meta name="twitter:card" content="summary_large_image" />
             </Head>
             <Script async defer crossorigin="anonymous" src="https://connect.facebook.net/id_ID/sdk.js#xfbml=1&version=v17.0&appId=706452909524459&autoLogAppEvents=1" nonce="rGnDUPIB"></Script>
             <Navbar active={"blog"} languageJson={languageJson} />
@@ -101,16 +106,16 @@ export default function Detail({ language_json, base_url, content }) {
                             <ol className="breadcrumb">
                                 <li className="breadcrumb-item"><Link href="/">Home</Link></li>
                                 <li className="breadcrumb-item" ><Link href="/blogs">Blogs</Link></li>
-                                <li className="breadcrumb-item active" aria-current="page">{blog_detail.title}</li>
+                                <li className="breadcrumb-item active strong" aria-current="page">{content.title}</li>
                             </ol>
                         </nav>
                     </div>
                     <div className="row ">
-                        <div className="d-flex col-md-8 col-12 col-xs-12 flex-column">
-                            <h4>{content.title}</h4>
+                        <div className="d-flex col-md-9 col-12 col-xs-12 flex-column">
+                            <h4 className="title p-0 m-0">{content.title}</h4>
                             <span className="text-dark">{(content.created_at) ? formatRelative(subDays(new Date(content.created_at), 3), new Date(), { locale: id }) : ''}</span>
                             <img className="img-fluid mb-4" src={content.image_cover} alt="" />
-                            <div style={{ background: "#fff" }} className="p-2 text-dark" dangerouslySetInnerHTML={{ __html: content.description }}>
+                            <div style={{ background: "#fff" }} className="text-dark blogs" dangerouslySetInnerHTML={{ __html: content.description }}>
 
                             </div>
                             <br />
