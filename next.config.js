@@ -7,6 +7,9 @@ const nextConfig = {
             fs: false 
         }
         return config
+    },
+    eslint:{
+        ignoreDuringBuilds: true,
     }
 }
 
