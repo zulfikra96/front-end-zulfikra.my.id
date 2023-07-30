@@ -50,7 +50,12 @@ export default function Detail({ base_url, language_json, data }) {
         const images = document.getElementsByTagName("img")
         for (let i = 0; i < images.length; i++) {
             images[i].classList.add("img-fluid")
-            
+            images[i].onclick = function() {
+                window.open(images[i].src)
+            }
+            images[i].onmouseenter = function() {
+                images[i].style.cursor = "pointer"
+            }
         }
 
         setTimeout(async () => {

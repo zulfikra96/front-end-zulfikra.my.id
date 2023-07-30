@@ -53,6 +53,12 @@ export default function Detail({ language_json, base_url, content }) {
         const images = document.getElementsByTagName("img")
         for (let i = 0; i < images.length; i++) {
             images[i].classList.add("img-fluid")
+            images[i].onclick = function() {
+                window.open(images[i].src)
+            }
+            images[i].onmouseenter = function() {
+                images[i].style.cursor = "pointer"
+            }
         }
         (async () => {
             await getClientBlogs(base_url)
