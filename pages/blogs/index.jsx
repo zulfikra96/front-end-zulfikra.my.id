@@ -141,7 +141,7 @@ export default function Blogs({ language_json, base_url }) {
                                             <div style={{ width: "100%", height: "280px" }} className="blog-item bg-dark d-flex flex-column overflow-hidden position-relative ">
                                                 <img className="img-fluid darken-img" src={e.image_cover} alt="" />
                                                 <div className="position-absolute bottom-0 p-2">
-                                                    <span><i className="bi bi-bookmark"> </i>{e.category} </span><span className="text-light">|{formatRelative(subDays(new Date(e.created_at), 3), new Date(), { locale: id })}</span>
+                                                    <span><i className="bi bi-bookmark"> </i>{e.category} </span><span className="text-light">| {formatRelative(subDays(new Date(e.created_at), 3), new Date(), { locale: id })}</span>
                                                     <h4 className="text-white fs-4 fw-bold">{e.title}</h4>
                                                 </div>
                                             </div>
