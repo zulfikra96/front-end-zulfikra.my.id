@@ -1,18 +1,17 @@
 import React from "react";
 import AdminMain from "../../components/Main";
 import Sidebar from "../../components/Sidebar";
-import { ContentState, EditorState, convertFromHTML, convertFromRaw, convertToRaw } from "draft-js"
+import { EditorState, convertFromRaw, convertToRaw, convertFromHTML, ContentState } from "draft-js"
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic"
 import Swal from "sweetalert2";
-// import { globalStore } from "../../../states/global";
+import { globalStore } from "../../../../states/global";
 import { userStore } from "../../../../states/Users";
 import { categoryStores } from "../../../../states/Categories";
 import Notfound from "../../../notfound";
 import draftToHtml from "draftjs-to-html"
-import { worksState } from "../../../../states/Works";
-import{ useRouter } from "next/navigation"
+import { blogStore } from "../../../../states/Blogs";
 
 const Editor = dynamic(
     () => import('react-draft-wysiwyg').then((mod) => mod.Editor),
@@ -32,22 +31,21 @@ export const getStaticPaths = async () => {
  * @param {SubmitEvent} e 
  * @param {*} callback 
  */
-async function uptadeWorks(id, e, description, base_url, token, callback) {
+async function postBlog(e, description, base_url, token, id, callback) {
     e.preventDefault()
     const data = {
         title: e.target[0].value,
-        works_category_id: e.target[1].value,
-        image_cover: e.target[3].value,
-        meta_keywords: e.target[4].value,
-        meta_description: e.target[5].value,
-        tools: e.target[6].value,
+        category_id: e.target[1].value,
+        tags: (/[,]/g.test(e.target[3].value)) ? e.target[3].value.split(",") : [e.target[3].value],
+        image_cover: e.target[4].value,
+        meta_keywords: e.target[5].value,
+        meta_description: e.target[6].value,
         description: description,
         is_posted: /true/.test(e.target[7].value)
     }
-
     try {
         Swal.showLoading()
-        const res = await fetch(`${base_url}/works/${id}`, {
+        const res = await fetch(`${base_url}/blogs/${id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -60,6 +58,10 @@ async function uptadeWorks(id, e, description, base_url, token, callback) {
             toast: true,
             title: "Sukses",
             text: res.message
+        }).then((res) => {
+            if(res.isConfirmed){
+                window.location.href = "/@admin/blogs"
+            }
         })
         return callback()
 
@@ -72,7 +74,7 @@ async function uptadeWorks(id, e, description, base_url, token, callback) {
     }
 }
 
-export async function getStaticProps(context) {
+export function getStaticProps(context) {
     return {
         props: {
             base_url: process.env.BASE_URL,
@@ -81,44 +83,39 @@ export async function getStaticProps(context) {
     }
 }
 
-export default function EditWorks({ base_url, id }) {
+export default function CreateBlog({ base_url, id }) {
+    // alert(id)
     const [editorState, onEditorStateChange] = useState(EditorState.createEmpty())
     const { session } = userStore()
     const { categories, getCategories } = categoryStores()
     const [_categories, setCategories] = useState([])
     const [_session, setSession] = useState(null)
     const [is_posted, setIsPosted] = useState(false)
-    const { works_categories, getWorksCategories, getWorksDetail, works_detail } = worksState()
-    const { push } = useRouter();
+    const { getBlogDetail, blog_detail } = blogStore()
+    const [ category, setCategory ] = useState(null)
     useEffect(() => {
         setSession(session);
         (async () => {
-            if (_categories.length === 0 && _categories.length !== works_categories.length) {
-                getWorksCategories(base_url, session?.token)
-                setCategories(works_categories)
-            } else if (_categories.length === 0 && works_categories.length !== 0) {
-                getWorksCategories(base_url, session?.token)
-                setCategories(works_categories)
-            } else if (_categories.length === 0) {
-                getWorksCategories(base_url, session?.token)
-                setCategories(works_categories)
+            if (categories.length === 0 ||  _categories.length !== categories.length) {
+                getCategories(base_url, session?.token)
+                setCategories(categories)
             }
-
-            await getWorksDetail(id, session.token,  base_url)
+            await getBlogDetail(base_url, session.token, id )
+            setCategory(blog_detail.category_id)
             setTimeout(() => {
                 // console.log("CHECK ", convertFromHTML(works_detail?.description))
-                if(convertFromHTML(works_detail?.description).contentBlocks.length !== 0) {
+                if(blog_detail?.description !== undefined && convertFromHTML(blog_detail?.description).contentBlocks.length !== 0) {
                     onEditorStateChange(EditorState.createWithContent(
                         ContentState.createFromBlockArray(
-                            convertFromHTML(works_detail?.description)
+                            convertFromHTML(blog_detail?.description)
                         )
                     ))
                 }
                 
             },500)
-            
         })()
-    }, [worksState.getState().works_categories])
+        
+    }, [categoryStores.getState().categories, blog_detail.description])
     if (_session?.role !== "ADMIN") {
         return <Notfound />
     }
@@ -128,27 +125,27 @@ export default function EditWorks({ base_url, id }) {
         <div>
             <div className="container-fluid">
                 <div className="row">
-                    <Sidebar active={"works"} />
+                    <Sidebar active={"blog"} />
                     <AdminMain>
                         <form onSubmit={(e) => {
                             e.preventDefault()
                             // console.log(convertToRaw(editorState.getCurrentContent()))
-                            uptadeWorks(works_detail.id, e, draftToHtml(convertToRaw(editorState.getCurrentContent())), base_url, session?.token, () => {
-                                return push("/@admin/works")
+                            postBlog(e, draftToHtml(convertToRaw(editorState.getCurrentContent())), base_url, session?.token, id, () => {
+
                             })
                         }}>
                             <div className="container-fluid bg-white mt-4 p-4 text-dark">
                                 <div className="form-group mb-4">
-                                    <label htmlFor="">Judul Works</label>
-                                    <input defaultValue={works_detail.title} required placeholder="Judul" type="text" className="form-control " />
+                                    <label htmlFor="">Judul Blog</label>
+                                    <input defaultValue={blog_detail?.title} required placeholder="Judul" type="text" className="form-control " />
                                 </div>
                                 <div className="form-group mb-4">
                                     <label htmlFor="">Kategori</label>
                                     <div className="d-flex gap-2">
-                                        <select defaultValue={works_detail.works_category_id} required name="" id="" className="form-control">
+                                        <select value={category} onChange={(e) => setCategory(e.currentTarget.value)}  required name="" id="" className="form-control">
                                             <option value=""></option>
-                                            {_categories.map((e) => (
-                                                <option key={e.id} value={e.id}>{e.title} </option>
+                                            {categories.map((e) => (
+                                                <option key={e.id} value={e.id}>{e.name} </option>
                                             ))}
                                         </select>
                                         <button onClick={() => {
@@ -157,9 +154,9 @@ export default function EditWorks({ base_url, id }) {
                                                 icon: "question",
                                                 input: "text",
                                             }).then(async (res) => {
-                                                if (res.isConfirmed && res.value !== "") {
+                                                if (res.isConfirmed) {
                                                     try {
-                                                        const _res = await fetch(`${base_url}/works/category`, {
+                                                        const _res = await fetch(`${base_url}/categories`, {
                                                             method: "POST",
                                                             headers: {
                                                                 "content-type": "application/json",
@@ -170,8 +167,8 @@ export default function EditWorks({ base_url, id }) {
                                                             })
                                                         }).then((res) => res.json())
                                                         if (_res.status_code !== 200) throw _res.message
-                                                        await getWorksCategories(base_url, session?.token)
-                                                        setCategories(worksState.getState().works_categories)
+                                                        await getCategories(base_url, session?.token)
+                                                        setCategories(categoryStores.getState().categories)
                                                     } catch (error) {
                                                         console.error(error)
                                                         Swal.fire({
@@ -185,23 +182,23 @@ export default function EditWorks({ base_url, id }) {
                                     </div>
                                 </div>
                                 <div className="mb-4">
+                                    <label htmlFor="">Tag</label>
+                                    <input defaultValue={blog_detail?.tags?.map((e) => e.name).toString()} required type="text" className="form-control" />
+                                </div>
+                                <div className="mb-4">
                                     <label htmlFor="">Gambar Sampul</label>
-                                    <input defaultValue={works_detail.image_cover} required type="text" placeholder="Link Gambar" className="form-control" />
+                                    <input defaultValue={blog_detail?.image_cover}  required type="text" placeholder="Link Gambar" className="form-control" />
                                 </div>
                                 <div className="mb-4">
                                     <label htmlFor="">Meta Keywords</label>
-                                    <input defaultValue={works_detail.meta_keywords}  required type="text" placeholder="Keywords dipisahkan dengan koma" className="form-control" />
+                                    <input defaultValue={blog_detail?.meta_keywords}  type="text" required className="form-control" />
                                 </div>
                                 <div className="mb-4">
                                     <label htmlFor="">Meta Description</label>
-                                    <input defaultValue={works_detail.meta_description}  required type="text" placeholder="meta description" className="form-control" />
-                                </div>
-                                <div className="mb-4">
-                                    <label htmlFor="">Tools</label>
-                                    <input defaultValue={works_detail.tools}  required type="text" className="form-control" placeholder="tools" />
+                                    <input defaultValue={blog_detail?.meta_description}  type="text" required className="form-control" />
                                 </div>
                                 <Editor
-                                    editorStyle={{ minHeight: "20em" }}
+                                     editorStyle={{ minHeight: "20em" }}
                                     editorState={editorState}
                                     toolbarClassName="toolbarClassName"
                                     wrapperClassName="wrapperClassName"

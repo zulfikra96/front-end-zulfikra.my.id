@@ -75,7 +75,9 @@ export default function Blogs({ base_url }) {
                                                 </div>
                                             </td>
                                             <td>{e.created_at}</td>
-                                            <td></td>
+                                            <td>
+                                                <button className="btn btn-primary"><Link href={`/@admin/blogs/${e.id}/edit`}>Update</Link></button>
+                                            </td>
                                         </tr>
                                     ))}
                                 </tbody>

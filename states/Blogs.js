@@ -25,6 +25,24 @@ export const blogStore = create((set, get) => ({
             })
         }
     },
+    getBlogDetail: async (base_url, token, id) => {
+        try {
+            const res = await fetch(`${base_url}/blogs/${id}`,{
+                headers:{
+                    "Authorization":"Bearer " + token
+                }
+            }).then((res) => res.json())
+            if (res.status_code !== 200) throw res.message
+            res.data
+            set({ blog_detail: res.data })
+        } catch (error) {
+            console.log(error)
+            throw Swal.fire({
+                toast: true,
+                title: error
+            })
+        }
+    },
     getClientBlogs: async (base_url, token, search) => {
         try {
             let query = `${base_url}/clients/blogs`
