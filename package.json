@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "reload":"./node_modules/pm2/bin/pm2 update"
   },
   "dependencies": {
     "date-fns": "^2.30.0",

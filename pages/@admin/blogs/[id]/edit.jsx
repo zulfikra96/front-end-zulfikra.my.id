@@ -113,10 +113,10 @@ export default function CreateBlog({ base_url, id }) {
 
                     } catch (error) {
                         console.log(error)
-                        if(convertFromHTML(works_detail?.description).contentBlocks.length !== 0) {
+                        if(convertFromHTML(blog_detail?.description).contentBlocks.length !== 0) {
                             onEditorStateChange(EditorState.createWithContent(
                                 ContentState.createFromBlockArray(
-                                    convertFromHTML(works_detail?.description)
+                                    convertFromHTML(blog_detail?.description)
                                 )
                             ))
                         }
