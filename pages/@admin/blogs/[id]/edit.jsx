@@ -59,7 +59,7 @@ async function postBlog(e, description, base_url, token, id, callback) {
             title: "Sukses",
             text: res.message
         }).then((res) => {
-            if(res.isConfirmed){
+            if (res.isConfirmed) {
                 window.location.href = "/@admin/blogs"
             }
         })
@@ -92,29 +92,40 @@ export default function CreateBlog({ base_url, id }) {
     const [_session, setSession] = useState(null)
     const [is_posted, setIsPosted] = useState(false)
     const { getBlogDetail, blog_detail } = blogStore()
-    const [ category, setCategory ] = useState(null)
+    const [category, setCategory] = useState(null)
     useEffect(() => {
         setSession(session);
         (async () => {
-            if (categories.length === 0 ||  _categories.length !== categories.length) {
+            if (categories.length === 0 || _categories.length !== categories.length) {
                 getCategories(base_url, session?.token)
                 setCategories(categories)
             }
-            await getBlogDetail(base_url, session.token, id )
+            await getBlogDetail(base_url, session.token, id)
             setCategory(blog_detail.category_id)
             setTimeout(() => {
                 // console.log("CHECK ", convertFromHTML(works_detail?.description))
-                if(blog_detail?.description !== undefined && convertFromHTML(blog_detail?.description).contentBlocks.length !== 0) {
-                    onEditorStateChange(EditorState.createWithContent(
-                        ContentState.createFromBlockArray(
-                            convertFromHTML(blog_detail?.description)
-                        )
-                    ))
+                if (blog_detail?.description !== undefined && convertFromHTML(blog_detail?.description).contentBlocks.length !== 0) {
+                    try {
+                        onEditorStateChange(EditorState.createWithContent(
+                            convertFromRaw(JSON.parse(blog_detail?.description))
+                        ))
+                        // onEditorStateChange(convertFromRaw(blog_detail?.description))
+
+                    } catch (error) {
+                        console.log(error)
+                        if(convertFromHTML(works_detail?.description).contentBlocks.length !== 0) {
+                            onEditorStateChange(EditorState.createWithContent(
+                                ContentState.createFromBlockArray(
+                                    convertFromHTML(works_detail?.description)
+                                )
+                            ))
+                        }
+                    }
                 }
-                
-            },500)
+
+            }, 500)
         })()
-        
+
     }, [categoryStores.getState().categories, blog_detail.description])
     if (_session?.role !== "ADMIN") {
         return <Notfound />
@@ -130,7 +141,7 @@ export default function CreateBlog({ base_url, id }) {
                         <form onSubmit={(e) => {
                             e.preventDefault()
                             // console.log(convertToRaw(editorState.getCurrentContent()))
-                            postBlog(e, draftToHtml(convertToRaw(editorState.getCurrentContent())), base_url, session?.token, id, () => {
+                            postBlog(e, convertToRaw(editorState.getCurrentContent()), base_url, session?.token, id, () => {
 
                             })
                         }}>
@@ -142,7 +153,7 @@ export default function CreateBlog({ base_url, id }) {
                                 <div className="form-group mb-4">
                                     <label htmlFor="">Kategori</label>
                                     <div className="d-flex gap-2">
-                                        <select value={category} onChange={(e) => setCategory(e.currentTarget.value)}  required name="" id="" className="form-control">
+                                        <select value={category} onChange={(e) => setCategory(e.currentTarget.value)} required name="" id="" className="form-control">
                                             <option value=""></option>
                                             {categories.map((e) => (
                                                 <option key={e.id} value={e.id}>{e.name} </option>
@@ -187,18 +198,18 @@ export default function CreateBlog({ base_url, id }) {
                                 </div>
                                 <div className="mb-4">
                                     <label htmlFor="">Gambar Sampul</label>
-                                    <input defaultValue={blog_detail?.image_cover}  required type="text" placeholder="Link Gambar" className="form-control" />
+                                    <input defaultValue={blog_detail?.image_cover} required type="text" placeholder="Link Gambar" className="form-control" />
                                 </div>
                                 <div className="mb-4">
                                     <label htmlFor="">Meta Keywords</label>
-                                    <input defaultValue={blog_detail?.meta_keywords}  type="text" required className="form-control" />
+                                    <input defaultValue={blog_detail?.meta_keywords} type="text" required className="form-control" />
                                 </div>
                                 <div className="mb-4">
                                     <label htmlFor="">Meta Description</label>
-                                    <input defaultValue={blog_detail?.meta_description}  type="text" required className="form-control" />
+                                    <input defaultValue={blog_detail?.meta_description} type="text" required className="form-control" />
                                 </div>
                                 <Editor
-                                     editorStyle={{ minHeight: "20em" }}
+                                    editorStyle={{ minHeight: "20em" }}
                                     editorState={editorState}
                                     toolbarClassName="toolbarClassName"
                                     wrapperClassName="wrapperClassName"
