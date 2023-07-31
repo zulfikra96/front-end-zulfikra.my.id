@@ -611,3 +611,8 @@ h6,
 .list-group .active a {
   color: white;
 }
+
+pre {
+  background-color: #dbdbdb;
+  padding: 8px;
+}
