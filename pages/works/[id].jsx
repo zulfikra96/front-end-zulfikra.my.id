@@ -22,7 +22,7 @@ export async function getServerSideProps(context) {
             method: "GET"
         }).then((res) => res.json())
         data = res.data
-          
+
     } catch (error) {
         console.log(error)
 
@@ -47,13 +47,14 @@ export default function Detail({ base_url, language_json, data }) {
         if (isEmpty(language)) {
             chooseLanguage("indonesia");
         }
-        const images = document.getElementsByTagName("img")
+        const main = document.getElementById("main")
+        const images = main.getElementsByTagName("img")
         for (let i = 0; i < images.length; i++) {
             images[i].classList.add("img-fluid")
-            images[i].onclick = function() {
+            images[i].onclick = function () {
                 window.open(images[i].src)
             }
-            images[i].onmouseenter = function() {
+            images[i].onmouseenter = function () {
                 images[i].style.cursor = "pointer"
             }
         }
@@ -132,8 +133,8 @@ export default function Detail({ base_url, language_json, data }) {
                 </section>
 
             </main>
-            <Author/>
-            <Footer/>
+            <Author />
+            <Footer />
         </div>
     )
 }

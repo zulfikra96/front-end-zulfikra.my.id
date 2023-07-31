@@ -104,7 +104,7 @@ export default function CreateBlog({ base_url }) {
                         <form onSubmit={(e) => {
                             e.preventDefault()
                             // console.log(convertToRaw(editorState.getCurrentContent()))
-                            postBlog(e, draftToHtml(convertToRaw(editorState.getCurrentContent())), base_url, session?.token, () => {
+                            postBlog(e, convertToRaw(editorState.getCurrentContent()), base_url, session?.token, () => {
 
                             })
                         }}>

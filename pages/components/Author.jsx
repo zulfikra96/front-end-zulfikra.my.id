@@ -3,13 +3,13 @@ export default function Author() {
     return (
         <div style={{marginTop:"10em"}} className="container">
             <div className="row">
-                <div className="card col-md-6 p-4  mb-5">
+                <div style={{borderRadius:0}} className="card col-md-6 p-4  mb-5 bg-light">
                     <div className="row">
                         <div className="col-md-8">
                             <h5><strong>Zulfikra L Abdjul</strong></h5>
                             <span>seorang ayah dari 1 anak dan seorang suami dari keluarga kecil yang senang belajar hal baru. Seorang programmer, senang bermain musik instrument apapun dan juga senang dengan desain visual</span>
                             <br /><br />
-                            <span>Software engineer di <a href="https://qwork.my">Qwork.my</a></span>
+                            <span>Software engineer di <a className="text-dark" href="https://qwork.my">Qwork.my</a></span>
                             <br />
                             <span>Sound Engineer di <strong>ZIF Studio</strong></span>
                             <br />

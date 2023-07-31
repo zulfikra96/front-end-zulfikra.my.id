@@ -18,7 +18,7 @@ import Author from "../components/Author";
 import Head from "next/head";
 
 export async function getServerSideProps(context) {
-    // console.log(language_json)
+    
     const dir = path.resolve(process.cwd(), "language.json")
     const language_json = JSON.parse(fs.readFileSync(dir).toString())
     // console.log(typeof language_json)
@@ -43,14 +43,16 @@ export async function getServerSideProps(context) {
 export default function Detail({ language_json, base_url, content }) {
     const { language, chooseLanguage } = globalStore()
     const [languageJson, setLanguageJson] = useState()
-    const { most_popular, blog_detail, getClientBlogDetail, getClientBlogs } = blogStore()
+    const { most_popular, getClientBlogDetail, getClientBlogs } = blogStore()
+    const [_date, setDate] = useState()
     const router = useRouter()
     useEffect(() => {
         setLanguageJson(language_json);
         if (isEmpty(language)) {
             chooseLanguage("indonesia");
         }
-        const images = document.getElementsByTagName("img")
+        const main = document.getElementById("main")
+        const images = main.getElementsByTagName("img")
         for (let i = 0; i < images.length; i++) {
             images[i].classList.add("img-fluid")
             images[i].onclick = function() {
@@ -60,6 +62,7 @@ export default function Detail({ language_json, base_url, content }) {
                 images[i].style.cursor = "pointer"
             }
         }
+        setDate(content?.created_at);
         (async () => {
             await getClientBlogs(base_url)
             // console.log(router)
@@ -112,23 +115,23 @@ export default function Detail({ language_json, base_url, content }) {
                             <ol className="breadcrumb">
                                 <li className="breadcrumb-item"><Link href="/">Home</Link></li>
                                 <li className="breadcrumb-item" ><Link href="/blogs">Blogs</Link></li>
-                                <li className="breadcrumb-item active strong" aria-current="page">{content.title}</li>
+                                <li className="breadcrumb-item active strong" aria-current="page">{content?.title}</li>
                             </ol>
                         </nav>
                     </div>
                     <div className="row ">
-                        <div className="d-flex col-md-9 col-12 col-xs-12 flex-column">
-                            <h4 className="title p-0 m-0">{content.title}</h4>
-                            <span className="text-dark">{(content.created_at) ? formatRelative(subDays(new Date(content.created_at), 3), new Date(), { locale: id }) : ''}</span>
-                            <img className="img-fluid mb-4" src={content.image_cover} alt="" />
-                            <div style={{ background: "#fff" }} className="text-dark blogs" dangerouslySetInnerHTML={{ __html: content.description }}>
+                        {(content) ? <div className="d-flex col-md-9 col-12 col-xs-12 flex-column">
+                            <h4 className="title p-0 m-0">{content?.title}</h4>
+                            <span className="text-dark">{(_date) ? formatRelative(subDays(new Date(_date), 3), new Date(), { locale: id }) : ''}</span>
+                            <img className="img-fluid mb-4" src={content?.image_cover} alt="" />
+                            <div className="text-dark blogs bg-light" dangerouslySetInnerHTML={{ __html: content?.description }}>
 
                             </div>
                             <br />
                             <div className="bg-light">
-                                <div className="fb-comments" data-href={`https://zulfikra.my.id/blogs/${content.slug}`} data-width="" data-numposts="5"></div>
+                                <div className="fb-comments" data-href={`https://zulfikra.my.id/blogs/${content?.slug}`} data-width="" data-numposts="5"></div>
                             </div>
-                        </div>
+                        </div> :<></>}
                         <MostRead most_popular={most_popular} />
                     </div>
                 </div>

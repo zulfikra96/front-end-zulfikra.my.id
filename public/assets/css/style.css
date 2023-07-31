@@ -24,6 +24,10 @@
   background-color: #0d1e2d;
 }
 
+.bg-light{
+  background-color: rgb(233 233 233) !important;
+}
+
 .font-dark {
   color: #0d1e2d;
 }

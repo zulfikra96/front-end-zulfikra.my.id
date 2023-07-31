@@ -83,7 +83,6 @@ export default function Works({ language_json, base_url }) {
 
                 </div>
             </main>
-            <Author/>
             <Footer />
         </div>
     )
