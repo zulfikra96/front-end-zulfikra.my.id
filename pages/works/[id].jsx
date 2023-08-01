@@ -105,7 +105,7 @@ export default function Detail({ base_url, language_json, data }) {
                                     <div className="col-md-12 mb-4">
                                         <img src={data?.image_cover} alt="Image" className="img-fluid" />
                                     </div>
-                                    <div className="col-md-12 mb-4 bg-light p-4">
+                                    <div className="col-md-12 mb-4  p-4">
                                         <div dangerouslySetInnerHTML={{ __html: data?.description }}></div>
                                     </div>
                                 </div>
@@ -128,12 +128,14 @@ export default function Detail({ base_url, language_json, data }) {
                                     </div>
                                 </div>
                             </div>
+                            <Author />
                         </div>
+
                     </div>
+
                 </section>
 
             </main>
-            <Author />
             <Footer />
         </div>
     )

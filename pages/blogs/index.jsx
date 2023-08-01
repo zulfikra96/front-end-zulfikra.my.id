@@ -154,7 +154,6 @@ export default function Blogs({ language_json, base_url }) {
                     </div>
                 </div>
             </main>
-            <Author/>
             <Footer />
         </div>
     )

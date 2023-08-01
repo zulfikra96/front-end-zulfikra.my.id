@@ -18,7 +18,7 @@ import Author from "../components/Author";
 import Head from "next/head";
 
 export async function getServerSideProps(context) {
-    
+
     const dir = path.resolve(process.cwd(), "language.json")
     const language_json = JSON.parse(fs.readFileSync(dir).toString())
     // console.log(typeof language_json)
@@ -55,10 +55,10 @@ export default function Detail({ language_json, base_url, content }) {
         const images = main.getElementsByTagName("img")
         for (let i = 0; i < images.length; i++) {
             images[i].classList.add("img-fluid")
-            images[i].onclick = function() {
+            images[i].onclick = function () {
                 window.open(images[i].src)
             }
-            images[i].onmouseenter = function() {
+            images[i].onmouseenter = function () {
                 images[i].style.cursor = "pointer"
             }
         }
@@ -101,7 +101,7 @@ export default function Detail({ language_json, base_url, content }) {
                 <meta name="keywords" content={content?.meta_keywords} />
                 <meta name="author" content="zulfikra l abdjul" />
 
-                <meta name="twitter:title" content={content?.title}/>
+                <meta name="twitter:title" content={content?.title} />
                 <meta name="twitter:description" content={content?.meta_description} />
                 <meta name="twitter:image" content={content?.image_cover} />
                 <meta name="twitter:card" content="summary_large_image" />
@@ -109,36 +109,41 @@ export default function Detail({ language_json, base_url, content }) {
             <Script async defer crossorigin="anonymous" src="https://connect.facebook.net/id_ID/sdk.js#xfbml=1&version=v17.0&appId=706452909524459&autoLogAppEvents=1" nonce="rGnDUPIB"></Script>
             <Navbar active={"blog"} languageJson={languageJson} />
             <main id="main">
-                <div className="container">
-                    <NavbarBlog base_url={base_url} />
-                    <div className="row">
-                        <nav aria-label="breadcrumb">
-                            <ol className="breadcrumb">
-                                <li className="breadcrumb-item"><Link href="/">Home</Link></li>
-                                <li className="breadcrumb-item" ><Link href="/blogs">Blogs</Link></li>
-                                <li className="breadcrumb-item active strong" aria-current="page">{content?.title}</li>
-                            </ol>
-                        </nav>
-                    </div>
-                    <div className="row ">
-                        {(content) ? <div className="d-flex col-md-9 col-12 col-xs-12 flex-column">
-                            <h4 className="title p-0 m-0">{content?.title}</h4>
-                            <span className="text-dark">{(_date) ? formatRelative(subDays(new Date(_date), 3), new Date(), { locale: id }) : ''}</span>
-                            <img className="img-fluid mb-4" src={content?.image_cover} alt="" />
-                            <div className=" blogs " dangerouslySetInnerHTML={{ __html: content?.description }}>
+                <section className="section">
+                    <div className="container">
+                        <NavbarBlog base_url={base_url} />
+                        <div className="row">
+                            <nav aria-label="breadcrumb">
+                                <ol className="breadcrumb">
+                                    <li className="breadcrumb-item"><Link href="/">Home</Link></li>
+                                    <li className="breadcrumb-item" ><Link href="/blogs">Blogs</Link></li>
+                                    <li className="breadcrumb-item active strong" aria-current="page">{content?.title}</li>
+                                </ol>
+                            </nav>
+                        </div>
+                        <div className="row ">
+                            {(content) ? <div className="d-flex col-md-9 col-12 col-xs-12 flex-column">
+                                <h4 className="title p-0 m-0">{content?.title}</h4>
+                                <span className="text-dark">{(_date) ? formatRelative(subDays(new Date(_date), 3), new Date(), { locale: id }) : ''}</span>
+                                <img className="img-fluid mb-4" src={content?.image_cover} alt="" />
+                                <div className=" blogs " dangerouslySetInnerHTML={{ __html: content?.description }}>
 
-                            </div>
-                            <br />
-                            <div className="bg-light">
-                                <div className="fb-comments" data-href={`https://zulfikra.my.id/blogs/${content?.slug}`} data-width="" data-numposts="5"></div>
-                            </div>
-                        </div> :<></>}
-                        <MostRead most_popular={most_popular} />
+                                </div>
+                                <br />
+                                <div className="bg-light">
+                                    <div className="fb-comments" data-href={`https://zulfikra.my.id/blogs/${content?.slug}`} data-width="" data-numposts="5"></div>
+                                </div>
+                            </div> : <></>}
+                            <MostRead most_popular={most_popular} />
+                        </div>
+                        <Author />
+
                     </div>
-                </div>
+                </section>
             </main>
+            <div className="container">
 
-            <Author />
+            </div>
             <Footer />
         </div>
     )

@@ -7,7 +7,7 @@ export default function Author() {
                     <div className="row">
                         <div className="col-md-8">
                             <h5><strong>Zulfikra L Abdjul</strong></h5>
-                            <span>seorang ayah dari 1 anak dan seorang suami dari keluarga kecil yang senang belajar hal baru. Seorang programmer, senang bermain musik instrument apapun dan juga senang dengan desain visual</span>
+                            <span>seorang ayah dari 1 anak dan seorang suami dari keluarga kecil yang senang belajar hal baru. Seorang programmer, senang bermain musik berbagai instrument  dan juga senang dengan desain visual</span>
                             <br /><br />
                             <span>Software engineer di <a className="text-dark" href="https://qwork.my">Qwork.my</a></span>
                             <br />
