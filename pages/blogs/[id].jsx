@@ -71,9 +71,10 @@ export default function Detail({ language_json, base_url, content }) {
         setTimeout(async () => {
             const apify = await fetch('https://api.ipify.org?format=json')
                 .then(response => response.json())
+                .catch((err) => console.log(err))
             const base = Buffer.from(JSON.stringify({
                 path: `/blogs/${router.query.id}`,
-                ip: apify.ip
+                ip: apify?.ip
             })).toString("base64");
             await fetch(`${base_url}/analytics/visitors`, {
                 method: "POST",
@@ -124,7 +125,7 @@ export default function Detail({ language_json, base_url, content }) {
                             <h4 className="title p-0 m-0">{content?.title}</h4>
                             <span className="text-dark">{(_date) ? formatRelative(subDays(new Date(_date), 3), new Date(), { locale: id }) : ''}</span>
                             <img className="img-fluid mb-4" src={content?.image_cover} alt="" />
-                            <div className="text-dark blogs bg-light" dangerouslySetInnerHTML={{ __html: content?.description }}>
+                            <div className=" blogs " dangerouslySetInnerHTML={{ __html: content?.description }}>
 
                             </div>
                             <br />
